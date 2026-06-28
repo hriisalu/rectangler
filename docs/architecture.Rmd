@@ -1,0 +1,288 @@
+# Rectangler Architecture
+
+This document describes the architectural design of the `rectangler` package.
+
+The purpose of this document is to define the package structure and design principles before implementation. It serves as the primary technical reference for future development.
+
+---
+
+## 1. Package philosophy
+
+`rectangler` is a diagram-building package based on rectangular layouts. It is designed for visualisations containing a relatively small number of meaningful rectangles, where each rectangle represents an individual entity that should remain directly readable and self-identifying.
+
+The package provides a structured framework for building rectangular diagrams such as rows, columns, pyramids and grouped layouts. Its primary focus is on comparison-oriented visualisations, where the relationships between individual objects are more important than displaying large amounts of data. `rectangler` is not intended to replace general-purpose plotting systems.
+
+`rectangler` separates layout, styling and annotation. Constructor functions create the geometry and store the required metadata. Layer functions then add visual details, labels, shapes and annotations without recalculating the core layout.
+
+A plot created with `rectangler` should be readable without referring to an external legend. Graphical elements identify themselves through labels, shape labels or annotations. For this reason, the package does not implement a separate legend system.
+
+
+## 2. Architectural principles
+
+The architecture of Rectangler can be understood as a simple object lifecycle.
+
+Every visualisation follows the same sequence of steps. Each stage has a single responsibility and builds upon the previous one.
+
+```text
+User request
+        │
+        ▼
+Constructor
+        │
+        ▼
+Layout calculation
+        │
+        ▼
+Rectangler object
+        │
+        ▼
+Layer system
+        │
+        ▼
+Final visualisation
+```
+
+The following sections describe each part of this architecture in more detail.
+
+`rectangler` is built around three architectural pillars:
+
+1. **Object model** — represents the structure of rectangles and their metadata.
+2. **Layout calculation** — calculates the geometry of the rectangle layout.
+3. **Layer system** — enriches the rectangle layout with additional visual information.
+
+The basic output of a constructor can be understood as a simple rectangle layout. Each additional layer enriches this structure without changing its underlying layout.
+
+```text
+            Object model
+             Represents
+                  │
+                  ▼
+        Layout calculation
+             Calculates
+                  │
+                  ▼
+           Layer system
+              Enriches
+                  │
+                  ▼
+      Complete visualisation
+```
+
+### Object model
+
+* Rectangles are first-class objects. Each rectangle represents a meaningful entity rather than a simple geometric shape.
+* Every graphical object should be directly readable and self-identifying through labels, shape labels or annotations.
+* `rectangler` is designed for diagrams containing a relatively small number of meaningful objects rather than large volumes of graphical elements.
+
+### Separation of responsibilities
+
+* Each public function has a single, clearly defined responsibility.
+* Constructor functions create layouts and initialise metadata.
+* Layer functions enrich existing objects without changing the underlying layout.
+
+### Layout system
+
+* Layout is calculated only once.
+* Styling and annotation never modify geometry.
+* Layer functions use existing metadata instead of recalculating layout.
+
+### API design
+
+* Public functions should be composable and work naturally together.
+* Sensible defaults should produce useful visualisations with minimal user input.
+* Internal implementation details should remain hidden behind a simple public API.
+
+### Extensibility
+
+* New functionality should be added by extending the existing architecture rather than modifying it.
+* Adding new layers should not require changes to existing layer implementations.
+
+
+## 3. Public API
+
+The public API is organised around two user-facing function categories and one internal support category.
+
+### Constructors
+
+Constructors create the initial rectangle layout and initialise the Rectangler object. They define the basic structure of the plot, including the type of layout, object positions and core metadata.
+
+Constructors are the starting point of every Rectangler visualisation.
+
+### Layers
+
+Layers add visual information to an existing Rectangler object. They enrich the initial rectangle layout with styling, labels, shapes and annotations without modifying the underlying layout.
+
+Layers are designed to be composable and can be added step by step.
+
+### Helpers
+
+Helpers provide supporting functionality for layout calculation, validation, metadata handling and other internal tasks.
+
+Helpers are not the main user-facing interface. They exist to keep constructors and layers simple, consistent and maintainable.
+
+Rectangler does not define a separate rendering or export API. Constructors return graphical objects that can be displayed, saved or rendered using standard R, ggplot2, RStudio, Shiny or Quarto workflows.
+
+
+## 4. Package structure
+
+`rectangler` is organised according to architectural responsibilities rather than individual functions. Each component of the package has a clearly defined purpose, keeping the implementation modular, maintainable and easy to extend.
+
+### Layout
+
+Responsible for creating rectangle layouts and performing all layout calculations.
+
+This component includes:
+
+* public constructor functions;
+* internal layout calculations;
+* geometry generation.
+
+### Layers
+
+Responsible for enriching Rectangler objects without modifying their underlying layout.
+
+Typical responsibilities include:
+
+* styling;
+* labels;
+* shapes;
+* annotations.
+
+Each layer focuses on a single visual responsibility and can be combined with other layers.
+
+### Internal
+
+Provides supporting functionality used throughout the package.
+
+Typical responsibilities include:
+
+* metadata management;
+* validation;
+* helper functions.
+
+Internal components are implementation details and are not intended to be part of the public API.
+
+### Documentation and testing
+
+Documentation and automated tests mirror the same architectural organisation wherever practical. Constructors, layers and internal components should each have dedicated documentation and test coverage.
+
+
+
+## 5. Rectangler object
+
+A Rectangler object is a standard graphical object enriched with Rectangler-specific metadata that allows additional layers to operate without recalculating the layout.
+
+The Rectangler object is the central carrier of the package architecture. Constructor functions create the initial graphical object and attach metadata describing its structural state. Layer functions then use this metadata to enrich the object with styling, labels, shapes and annotations.
+
+The metadata does not describe the complete visual appearance of the plot. Instead, it preserves the structural information required for layers to operate consistently while keeping the underlying rectangle layout unchanged.
+
+### Canvas and rectangle layout
+
+A Rectangler object distinguishes between the **canvas** and the **rectangle layout**.
+
+The **canvas** represents the complete drawing area of the visualisation. Initially, it matches the rectangle layout as closely as possible. As additional layers are applied, the canvas may expand to provide space for graphical elements placed outside the rectangles, such as annotations or external shape labels.
+
+The **rectangle layout** defines the geometry of the rectangular objects themselves. It stores the position, size and relationships of rectangles and remains unchanged throughout the lifetime of the object.
+
+This separation allows layers to extend the visualisation without modifying the rectangle layout. External graphical elements receive the space they require, while the underlying geometry remains stable and reusable.
+
+## 6. Layout calculation
+
+Layout calculation transforms a constructor request into a complete rectangle layout.
+
+Each constructor defines the type of layout to be created. Based on the user request and the specified layout rules, `rectangler` calculates the complete geometry of all rectangles before any visual layers are applied.
+
+Layout calculation follows a simple conceptual workflow:
+
+```text
+User request
+        │
+        ▼
+Layout rules
+        │
+        ▼
+Geometry calculation
+        │
+        ▼
+Rectangle layout
+```
+
+The layout rules may include:
+
+* layout type;
+* number of rectangles;
+* grouping structure;
+* rectangle aspect ratio;
+* gap or spacing between rectangles;
+* outer padding;
+* alignment rules;
+* available drawing area.
+
+The resulting rectangle layout is stored within the Rectangler object and reused by all subsequent layers. Once calculated, the rectangle layout remains unchanged throughout the lifetime of the object.
+
+
+## 7. Layer system
+
+Layers enrich a Rectangler object without modifying its rectangle layout.
+
+Each layer has a single visual responsibility and builds upon the existing object. Rather than recalculating geometry, layers read the metadata stored within the Rectangler object and extend the visualisation in a predictable and composable way.
+
+Depending on their purpose, layers may:
+
+* modify the visual appearance of existing rectangles;
+* add labels to existing rectangles;
+* add graphical elements associated with rectangles;
+* add annotations inside or outside the rectangle layout;
+* request additional canvas space when external graphical elements require it.
+
+Layers never recalculate the rectangle layout. The layout remains stable throughout the lifetime of the object, while the canvas may expand when required by additional visual elements.
+
+Because layers are composable, users can progressively enrich a simple rectangle layout into a complete visualisation by combining multiple independent layers.
+
+## 8. Extension points
+
+`rectangler` is designed to grow by extending the existing architecture rather than modifying it.
+
+New functionality should fit naturally into one of the existing architectural components:
+
+* constructors introduce new layout types;
+* layers introduce new visual capabilities;
+* internal components provide reusable functionality supporting the public API.
+
+Whenever possible, new features should reuse the existing object model and layout calculation rather than introducing parallel implementations.
+
+The preferred way to extend `rectangler` is by composing existing components. This keeps the public API consistent and preserves the separation between layout calculation, object metadata and visual layers.
+
+## 9. Naming conventions
+
+`rectangler` follows a consistent naming convention to make the public API predictable and easy to learn.
+
+### Public functions
+
+All exported functions begin with the `rect_` prefix.
+
+Public functions are grouped according to their architectural responsibility:
+
+* constructors create new Rectangler objects;
+* layers enrich existing Rectangler objects.
+
+Function names should describe **what they do**, not **how they are implemented**.
+
+### Internal functions
+
+Internal functions are named according to their responsibility within the architecture.
+
+Names should reflect the component they belong to, such as layout calculation, metadata management or validation, rather than the public functions that call them.
+
+### Function arguments
+
+Argument names should be descriptive, consistent and reused across constructors and layers whenever they represent the same concept.
+
+The same concept should always use the same argument name throughout the package.
+
+### File organisation
+
+Implementation files are organised by architectural responsibility rather than by individual public function names.
+
+Each file should have a single responsibility and may contain multiple closely related functions.
+

@@ -1,0 +1,18 @@
+Package: rectangler
+Type: Package
+Title: Creates rectangles to compare objects
+Version: 0.1.0
+Authors@R: person("Helina", "Riisalu", email = "helinariisalu@hotmail.com", role = c("aut","cre"))
+Maintainer: Helina Riisalu <helinariisalu@hotmail.com>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 3.5)
+Imports:
+    ggplot2,
+    magrittr,
+    dplyr,
+    rlang
