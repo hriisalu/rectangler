@@ -1,0 +1,13 @@
+utils::globalVariables(c(
+  ".data",
+  ".rect_offset_x_sign",
+  ".rect_offset_y_sign",
+  ".rect_shape_x",
+  ".rect_shape_y",
+  "height",
+  "width",
+  "xmax",
+  "xmin",
+  "ymax",
+  "ymin"
+))

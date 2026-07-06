@@ -1,12 +1,13 @@
 Package: rectangler
 Type: Package
-Title: Creates rectangles to compare objects
+Title: Create Rectangle-Based Comparison Plots
 Version: 0.1.0
 Authors@R: person("Helina", "Riisalu", email = "helinariisalu@hotmail.com", role = c("aut","cre"))
 Maintainer: Helina Riisalu <helinariisalu@hotmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: GPL-3
+Description: Create rectangle-based comparison plots with proportional areas,
+    labels, annotations, shapes, and styling layers. The package provides a
+    small grammar for building rectangular visualisations step by step.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 
@@ -14,5 +15,6 @@ Depends:
 Imports:
     ggplot2,
     magrittr,
-    dplyr,
-    rlang
+    dplyr
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)

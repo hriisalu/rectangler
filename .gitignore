@@ -8,21 +8,9 @@
 *.tar.gz
 *.Rcheck
 
-# Temporary files
-Rplot.pdf
-*.bak
-
-# Development folders
-backup/
-dev/
-
-# Experimental scripts
-proov*.R
-
-# Personal project notes
-chatgpt - agendid.txt
-funktsioonide skeem.xlsx
-
 # Operating system
 .DS_Store
 Thumbs.db
+
+# Quarto
+.quarto
