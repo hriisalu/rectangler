@@ -132,12 +132,12 @@ rect_prepare_text <- function(layout,
     data = layout,
     value = size,
     value_col = size_col,
-    default = default_size,
+    default = 1,
     n = n,
     arg = "size"
   )
 
-  size <- rect_text_size(size)
+  size <- default_size * rect_text_size(size)
 
   colour <- rect_prepare_value(
     data = layout,
