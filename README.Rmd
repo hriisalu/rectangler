@@ -7,7 +7,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%",
+  out.width = "85%",
+  fig.width = 8,
+  fig.height = 7,
+  dpi = 300,
   message = FALSE,
   warning = FALSE
 )
@@ -15,16 +18,16 @@ knitr::opts_chunk$set(
 
 # rectangler
 
-**rectangler** helps you build comparison-oriented rectangle graphics in R.
+**rectangler** helps you build comparison graphics using rectangles in R.
 
-It is designed for plots with a small number of meaningful objects: domains, groups, categories, steps or indicators that should remain directly readable.
+It is designed for plots with a small number of meaningful objects: domains, groups, categories, steps, or indicators that should remain directly readable.
 
 ```{r setup}
 library(rectangler)
 library(dplyr)
 ```
 
-```{r hero-plot, echo = FALSE}
+```{r hero-plot, echo = FALSE, out.width="80%"}
 mydata <- tibble::tibble(
   value = c(2643, 6939, 2227, 3764),
   label = c("D1", "D2", "D3", "D4"),
@@ -64,19 +67,24 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
+    size = 0.6,
     space = 1
   )
 ```
 
 ## Why rectangler?
 
-Rectangler is useful when you want to compare a small number of objects and keep each object visually distinct.
+Rectangler is designed for comparison graphics where a small number of objects should remain visually distinct and directly readable.
 
-Unlike treemaps, Rectangler does not pack everything into a single large rectangle. It keeps the objects separate and readable.
+Unlike treemaps, it keeps objects separate instead of packing them into a single area. Unlike bar charts, it combines rectangular layouts with labels, shapes and annotations to create compact comparison graphics.
 
-Unlike bar charts, Rectangler does not rely on equal-width bars. It uses rectangular layouts, labels, corner or side shapes, and annotations to create compact comparison graphics.
+**Design principles**
 
-The four-part layout, created with `rect_plot4()`, is especially useful for comparing four objects in a clear visual form.
+- constructor + layer grammar
+- four built-in layouts
+- publication-ready comparison graphics
+- works naturally with ggplot2
+
 
 ## Installation
 
@@ -88,7 +96,7 @@ remotes::install_github("hriisalu/rectangler")
 
 ## The Rectangler grammar
 
-Every Rectangler graphic starts with a **constructor**, which creates the layout. Additional information is then added using **layers**.
+Every Rectangler graphic starts with a **constructor**, which creates the layout. Additional information is then added using **layers**. This grammar is intentionally simple: start with a layout and enrich it layer by layer.
 
 ```{r grammar, eval = FALSE}
 rect_plot4(data) %>%
@@ -101,7 +109,7 @@ rect_plot4(data) %>%
 
 ## Your first plot
 
-Create example data.
+Let's build a simple Rectangler graphic step by step. Create example data.
 
 ```{r data}
 mydata <- tibble::tibble(
@@ -225,33 +233,37 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
+    size = 0.6,
     space = 1
   )
 ```
 
-## Relative sizes
+## Available layouts
 
-Many Rectangler arguments use relative sizes. The default value is usually `1`.
-
-Use values below `1` to make an element smaller and values above `1` to make it larger.
-
-```{r relative-sizes, eval = FALSE}
-rect_label(size = 0.8)
-rect_shape_label(size = 1.2)
-rect_annotation(space = 1.5)
-```
-
-## Other layouts
-
-The main constructor in this README is `rect_plot4()`, but Rectangler also includes other layouts:
+Rectangler currently provides four layout constructors.
 
 ```{r other-layouts, eval = FALSE}
+rect_plot4(data)
 rect_row(data)
 rect_col(data)
 rect_pyr(data)
 ```
 
-See the vignette for a complete tutorial with all layouts and layers.
+## Learn more
+
+The README introduces the basic workflow.
+
+The vignette provides a complete tutorial, including:
+
+- Creating layouts
+- Styling rectangles
+- Working with labels
+- Adding shapes
+- Using annotations
+- Supplying values
+- Controlling spacing
+- Complete examples
+- Shiny integration
 
 ```{r vignette, eval = FALSE}
 vignette("rectangler")

@@ -14,3 +14,10 @@ Thumbs.db
 
 # Quarto
 .quarto
+
+# Generated vignette files
+vignettes/*.html
+vignettes/figures/*
+man/figures/vignette-*.png
+/doc/
+/Meta/

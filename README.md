@@ -1,11 +1,11 @@
 
 # rectangler
 
-**rectangler** helps you build comparison-oriented rectangle graphics in
+**rectangler** helps you build comparison graphics using rectangles in
 R.
 
 It is designed for plots with a small number of meaningful objects:
-domains, groups, categories, steps or indicators that should remain
+domains, groups, categories, steps, or indicators that should remain
 directly readable.
 
 ``` r
@@ -13,22 +13,23 @@ library(rectangler)
 library(dplyr)
 ```
 
-<img src="man/figures/README-hero-plot-1.png" width="100%" />
+<img src="man/figures/README-hero-plot-1.png" width="80%" />
 
 ## Why rectangler?
 
-Rectangler is useful when you want to compare a small number of objects
-and keep each object visually distinct.
+Rectangler is designed for comparison graphics where a small number of
+objects should remain visually distinct and directly readable.
 
-Unlike treemaps, Rectangler does not pack everything into a single large
-rectangle. It keeps the objects separate and readable.
+Unlike treemaps, it keeps objects separate instead of packing them into
+a single area. Unlike bar charts, it combines rectangular layouts with
+labels, shapes and annotations to create compact comparison graphics.
 
-Unlike bar charts, Rectangler does not rely on equal-width bars. It uses
-rectangular layouts, labels, corner or side shapes, and annotations to
-create compact comparison graphics.
+**Design principles**
 
-The four-part layout, created with `rect_plot4()`, is especially useful
-for comparing four objects in a clear visual form.
+- constructor + layer grammar
+- four built-in layouts
+- publication-ready comparison graphics
+- works naturally with ggplot2
 
 ## Installation
 
@@ -41,7 +42,9 @@ remotes::install_github("hriisalu/rectangler")
 ## The Rectangler grammar
 
 Every Rectangler graphic starts with a **constructor**, which creates
-the layout. Additional information is then added using **layers**.
+the layout. Additional information is then added using **layers**. This
+grammar is intentionally simple: start with a layout and enrich it layer
+by layer.
 
 ``` r
 rect_plot4(data) %>%
@@ -54,7 +57,8 @@ rect_plot4(data) %>%
 
 ## Your first plot
 
-Create example data.
+Let’s build a simple Rectangler graphic step by step. Create example
+data.
 
 ``` r
 mydata <- tibble::tibble(
@@ -80,7 +84,7 @@ Start with a constructor.
 rect_plot4(mydata, value_col = "value")
 ```
 
-<img src="man/figures/README-first-plot-1-1.png" width="100%" />
+<img src="man/figures/README-first-plot-1-1.png" width="85%" />
 
 Add styling.
 
@@ -93,7 +97,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-2-1.png" width="100%" />
+<img src="man/figures/README-first-plot-2-1.png" width="85%" />
 
 Add labels.
 
@@ -110,7 +114,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-3-1.png" width="100%" />
+<img src="man/figures/README-first-plot-3-1.png" width="85%" />
 
 Add corner shapes.
 
@@ -133,7 +137,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-4-1.png" width="100%" />
+<img src="man/figures/README-first-plot-4-1.png" width="85%" />
 
 Add labels to the shapes.
 
@@ -160,7 +164,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-5-1.png" width="100%" />
+<img src="man/figures/README-first-plot-5-1.png" width="85%" />
 
 Add annotations as the final layer.
 
@@ -188,38 +192,39 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
+    size = 0.6,
     space = 1
   )
 ```
 
-<img src="man/figures/README-first-plot-6-1.png" width="100%" />
+<img src="man/figures/README-first-plot-6-1.png" width="85%" />
 
-## Relative sizes
+## Available layouts
 
-Many Rectangler arguments use relative sizes. The default value is
-usually `1`.
-
-Use values below `1` to make an element smaller and values above `1` to
-make it larger.
+Rectangler currently provides four layout constructors.
 
 ``` r
-rect_label(size = 0.8)
-rect_shape_label(size = 1.2)
-rect_annotation(space = 1.5)
-```
-
-## Other layouts
-
-The main constructor in this README is `rect_plot4()`, but Rectangler
-also includes other layouts:
-
-``` r
+rect_plot4(data)
 rect_row(data)
 rect_col(data)
 rect_pyr(data)
 ```
 
-See the vignette for a complete tutorial with all layouts and layers.
+## Learn more
+
+The README introduces the basic workflow.
+
+The vignette provides a complete tutorial, including:
+
+- Creating layouts
+- Styling rectangles
+- Working with labels
+- Adding shapes
+- Using annotations
+- Supplying values
+- Controlling spacing
+- Complete examples
+- Shiny integration
 
 ``` r
 vignette("rectangler")

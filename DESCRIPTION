@@ -18,3 +18,9 @@ Imports:
     dplyr
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
+Suggests:
+    knitr,
+    rmarkdown,
+    tibble,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
