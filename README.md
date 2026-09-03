@@ -8,19 +8,19 @@ It is designed for plots with a small number of meaningful objects:
 domains, groups, categories, steps, or indicators that should remain
 directly readable.
 
-## Documentation
-
-- [Getting started with
-  rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
-- [Function
-  reference](https://hriisalu.github.io/rectangler/reference/index.html)
-
 ``` r
 library(rectangler)
 library(dplyr)
 ```
 
 <img src="man/figures/README-hero-plot-1.png" width="80%" />
+
+## Documentation
+
+- [Getting started with
+  rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+- [Function
+  reference](https://hriisalu.github.io/rectangler/reference/index.html)
 
 ## Why rectangler?
 
@@ -217,32 +217,27 @@ rect_col(data)
 rect_pyr(data)
 ```
 
+See the [Getting started with
+rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+vignette for examples and a visual comparison of the available layouts.
+
 ## Learn more
 
-The README introduces the basic workflow.
-
-The vignette provides a complete tutorial, including:
+The README introduces the basic workflow. The vignette provides a
+complete tutorial, including:
 
 - Creating layouts
-
 - Styling rectangles
-
 - Working with labels
-
 - Adding shapes
-
 - Using annotations
-
 - Supplying values
-
 - Controlling spacing
-
 - Complete examples
-
 - Shiny integration
 
-- [Getting started with
-  rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+For a complete tutorial, see [Getting started with
+rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html).
 
-- [Function
-  reference](https://hriisalu.github.io/rectangler/reference/index.html)
+For documentation of individual functions, see the [Function
+reference](https://hriisalu.github.io/rectangler/reference/index.html).

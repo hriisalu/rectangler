@@ -22,17 +22,12 @@ knitr::opts_chunk$set(
 
 It is designed for plots with a small number of meaningful objects: domains, groups, categories, steps, or indicators that should remain directly readable.
 
-## Documentation
-
-- [Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
-- [Function reference](https://hriisalu.github.io/rectangler/reference/index.html)
-
 ```{r setup}
 library(rectangler)
 library(dplyr)
 ```
 
-```{r hero-plot, echo = FALSE, out.width="80%"}
+```{r hero-plot, echo = FALSE, out.width="80%", fig.height=5}
 mydata <- tibble::tibble(
   value = c(2643, 6939, 2227, 3764),
   label = c("D1", "D2", "D3", "D4"),
@@ -76,6 +71,11 @@ rect_plot4(mydata, value_col = "value") %>%
     space = 1
   )
 ```
+
+## Documentation
+
+- [Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+- [Function reference](https://hriisalu.github.io/rectangler/reference/index.html)
 
 ## Why rectangler?
 
@@ -214,7 +214,7 @@ rect_plot4(mydata, value_col = "value") %>%
 
 Add annotations as the final layer.
 
-```{r first-plot-6}
+```{r first-plot-6, fig.height=5}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -254,11 +254,11 @@ rect_col(data)
 rect_pyr(data)
 ```
 
+See the [Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html) vignette for examples and a visual comparison of the available layouts.
+
 ## Learn more
 
-The README introduces the basic workflow.
-
-The vignette provides a complete tutorial, including:
+The README introduces the basic workflow. The vignette provides a complete tutorial, including:
 
 - Creating layouts
 - Styling rectangles
@@ -270,5 +270,8 @@ The vignette provides a complete tutorial, including:
 - Complete examples
 - Shiny integration
 
-- [Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
-- [Function reference](https://hriisalu.github.io/rectangler/reference/index.html)
+For a complete tutorial, see
+[Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html).
+
+For documentation of individual functions, see the
+[Function reference](https://hriisalu.github.io/rectangler/reference/index.html).
