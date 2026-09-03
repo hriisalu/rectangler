@@ -3,7 +3,7 @@ pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   rectangler: rectangler.html
-last_built: 2026-09-03T18:22Z
+last_built: 2026-09-03T18:49Z
 urls:
   reference: https://hriisalu.github.io/rectangler/reference
   article: https://hriisalu.github.io/rectangler/articles
