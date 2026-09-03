@@ -8,6 +8,13 @@ It is designed for plots with a small number of meaningful objects:
 domains, groups, categories, steps, or indicators that should remain
 directly readable.
 
+## Documentation
+
+- [Getting started with
+  rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+- [Function
+  reference](https://hriisalu.github.io/rectangler/reference/index.html)
+
 ``` r
 library(rectangler)
 library(dplyr)
@@ -217,15 +224,25 @@ The README introduces the basic workflow.
 The vignette provides a complete tutorial, including:
 
 - Creating layouts
+
 - Styling rectangles
+
 - Working with labels
+
 - Adding shapes
+
 - Using annotations
+
 - Supplying values
+
 - Controlling spacing
+
 - Complete examples
+
 - Shiny integration
 
-``` r
-vignette("rectangler")
-```
+- [Getting started with
+  rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+
+- [Function
+  reference](https://hriisalu.github.io/rectangler/reference/index.html)

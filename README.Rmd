@@ -22,6 +22,11 @@ knitr::opts_chunk$set(
 
 It is designed for plots with a small number of meaningful objects: domains, groups, categories, steps, or indicators that should remain directly readable.
 
+## Documentation
+
+- [Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+- [Function reference](https://hriisalu.github.io/rectangler/reference/index.html)
+
 ```{r setup}
 library(rectangler)
 library(dplyr)
@@ -265,6 +270,5 @@ The vignette provides a complete tutorial, including:
 - Complete examples
 - Shiny integration
 
-```{r vignette, eval = FALSE}
-vignette("rectangler")
-```
+- [Getting started with rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.html)
+- [Function reference](https://hriisalu.github.io/rectangler/reference/index.html)
