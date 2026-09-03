@@ -1,0 +1,274 @@
+# rectangler
+
+**rectangler** helps you build comparison graphics using rectangles in
+R.
+
+It is designed for plots with a small number of meaningful objects:
+domains, groups, categories, steps, or indicators that should remain
+directly readable.
+
+``` r
+
+library(rectangler)
+library(dplyr)
+```
+
+![](reference/figures/README-hero-plot-1.png)
+
+## Why rectangler?
+
+Rectangler is designed for comparison graphics where a small number of
+objects should remain visually distinct and directly readable.
+
+Unlike treemaps, it keeps objects separate instead of packing them into
+a single area. Unlike bar charts, it combines rectangular layouts with
+labels, shapes and annotations to create compact comparison graphics.
+
+**Design principles**
+
+- constructor + layer grammar
+- four built-in layouts
+- publication-ready comparison graphics
+- works naturally with ggplot2
+
+## Installation
+
+You can install the development version from GitHub:
+
+``` r
+
+remotes::install_github("hriisalu/rectangler")
+```
+
+## The Rectangler grammar
+
+Every Rectangler graphic starts with a **constructor**, which creates
+the layout. Additional information is then added using **layers**. This
+grammar is intentionally simple: start with a layout and enrich it layer
+by layer.
+
+``` r
+
+rect_plot4(data) %>%
+  rect_style() %>%
+  rect_label() %>%
+  rect_shape() %>%
+  rect_shape_label() %>%
+  rect_annotation()
+```
+
+## Your first plot
+
+Let’s build a simple Rectangler graphic step by step. Create example
+data.
+
+``` r
+
+mydata <- tibble::tibble(
+  value = c(2643, 6939, 2227, 3764),
+  label = c("D1", "D2", "D3", "D4"),
+  border = c("#3B82A0", "#6A994E", "#D17A22", "#A44A6F"),
+  annotation = c(
+    "Top performer",
+    "Highest growth",
+    "Largest investment",
+    "Lowest cost"
+  )
+) %>%
+  mutate(
+    share = round(value / sum(value) * 100),
+    text = paste0(value, "\n(", share, "%)")
+  )
+```
+
+Start with a constructor.
+
+``` r
+
+rect_plot4(mydata, value_col = "value")
+```
+
+![](reference/figures/README-first-plot-1-1.png)
+
+Add styling.
+
+``` r
+
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 2
+  )
+```
+
+![](reference/figures/README-first-plot-2-1.png)
+
+Add labels.
+
+``` r
+
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "text",
+    size = 0.8
+  )
+```
+
+![](reference/figures/README-first-plot-3-1.png)
+
+Add corner shapes.
+
+``` r
+
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "text",
+    size = 0.8
+  ) %>%
+  rect_shape(
+    position = "corner",
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 1.5
+  )
+```
+
+![](reference/figures/README-first-plot-4-1.png)
+
+Add labels to the shapes.
+
+``` r
+
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "text",
+    size = 0.8
+  ) %>%
+  rect_shape(
+    position = "corner",
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 1.5
+  ) %>%
+  rect_shape_label(
+    label_col = "label",
+    size = 1.2
+  )
+```
+
+![](reference/figures/README-first-plot-5-1.png)
+
+Add annotations as the final layer.
+
+``` r
+
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "text",
+    size = 0.8
+  ) %>%
+  rect_shape(
+    position = "corner",
+    fill = "white",
+    border_color = mydata$border,
+    border_width = 1.5
+  ) %>%
+  rect_shape_label(
+    label_col = "label",
+    size = 1.2
+  ) %>%
+  rect_annotation(
+    label_col = "annotation",
+    position = "horizontal",
+    size = 0.6,
+    space = 1
+  )
+```
+
+![](reference/figures/README-first-plot-6-1.png)
+
+## Available layouts
+
+Rectangler currently provides four layout constructors.
+
+``` r
+
+rect_plot4(data)
+rect_row(data)
+rect_col(data)
+rect_pyr(data)
+```
+
+## Learn more
+
+The README introduces the basic workflow.
+
+The vignette provides a complete tutorial, including:
+
+- Creating layouts
+- Styling rectangles
+- Working with labels
+- Adding shapes
+- Using annotations
+- Supplying values
+- Controlling spacing
+- Complete examples
+- Shiny integration
+
+``` r
+
+vignette("rectangler")
+```
+
+# Package index
+
+## All functions
+
+- [`rect_annotation()`](https://hriisalu.github.io/rectangler/reference/rect_annotation.md)
+  : Add annotations to rectangles
+- [`rect_col()`](https://hriisalu.github.io/rectangler/reference/rect_col.md)
+  : Create a column layout of rectangles
+- [`rect_data_demo`](https://hriisalu.github.io/rectangler/reference/rect_data_demo.md)
+  : Example data for Rectangler
+- [`rect_label()`](https://hriisalu.github.io/rectangler/reference/rect_label.md)
+  : Add labels to rectangles
+- [`rect_plot4()`](https://hriisalu.github.io/rectangler/reference/rect_plot4.md)
+  : Create a 2×2 rectangle layout
+- [`rect_pyr()`](https://hriisalu.github.io/rectangler/reference/rect_pyr.md)
+  : Create a pyramid layout of rectangles
+- [`rect_row()`](https://hriisalu.github.io/rectangler/reference/rect_row.md)
+  : Create a row layout of rectangles
+- [`rect_shape()`](https://hriisalu.github.io/rectangler/reference/rect_shape.md)
+  : Add shapes to a Rectangler plot
+- [`rect_shape_label()`](https://hriisalu.github.io/rectangler/reference/rect_shape_label.md)
+  : Add labels to shapes
+- [`rect_style()`](https://hriisalu.github.io/rectangler/reference/rect_style.md)
+  : Style rectangles
+
+# Articles
+
+### All vignettes
+
+- [Getting started with
+  rectangler](https://hriisalu.github.io/rectangler/articles/rectangler.md):
