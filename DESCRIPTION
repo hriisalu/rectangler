@@ -24,3 +24,4 @@ Suggests:
     tibble,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
+URL: https://hriisalu.github.io/rectangler/
