@@ -96,3 +96,11 @@ test_that("rect_plot4() places rectangles around the center gap", {
   expect_true(all(layout$ymin[c(3, 4)] < 0))
   expect_true(all(layout$ymax[c(3, 4)] < 0))
 })
+
+test_that("rect_plot4() accepts direct value vector", {
+  p <- rect_plot4(value = c(10, 20, 30, 40))
+
+  expect_true(rect_is_rectangler(p))
+  expect_s3_class(p, "ggplot")
+  expect_equal(nrow(rect_info(p)$layout), 4)
+})

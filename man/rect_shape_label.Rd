@@ -64,7 +64,7 @@ Label content and appearance can be set directly or mapped from columns
 in the original data.
 }
 \examples{
-rect_plot4() \%>\%
+rect_plot4(rect_data_demo) \%>\%
   rect_shape_label()
 
 rect_plot4(rect_data_demo) \%>\%

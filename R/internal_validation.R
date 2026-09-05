@@ -5,45 +5,72 @@ rect_is_rectangler <- function(p) {
 }
 
 
-rect_check_plot4_data <- function(data, value_col) {
+rect_check_values <- function(data, value = NULL, value_col = NULL, min_rows = 1) {
+
   if (!is.data.frame(data)) {
     stop("`data` must be a data frame.", call. = FALSE)
   }
 
-  if (!value_col %in% names(data)) {
-    stop("`value_col` must be a column in `data`.", call. = FALSE)
+  if (nrow(data) < min_rows) {
+    stop(
+      sprintf("`data` must contain at least %s row%s.",
+              min_rows,
+              if (min_rows == 1) "" else "s"),
+      call. = FALSE
+    )
   }
 
-  if (nrow(data) < 4) {
-    stop("`data` must contain at least four rows.", call. = FALSE)
+  if (!is.null(value_col)) {
+
+    if (!value_col %in% names(data)) {
+      stop("`value_col` must be a column in `data`.", call. = FALSE)
+    }
+
+    values <- data[[value_col]]
+
+  } else if (!is.null(value)) {
+
+    values <- value
+
+  } else {
+
+    stop("Supply either `value` or `value_col`.", call. = FALSE)
   }
 
-  if (!is.numeric(data[[value_col]])) {
-    stop("`value_col` must be numeric.", call. = FALSE)
+  if (!is.numeric(values)) {
+    stop("Rectangle values must be numeric.", call. = FALSE)
+  }
+
+  if (!(length(values) %in% c(1, nrow(data)))) {
+    stop(
+      "`value` must have length 1 or one value per row in `data`.",
+      call. = FALSE
+    )
   }
 
   invisible(TRUE)
 }
 
 
-rect_check_data <- function(data, value_col) {
-  if (!is.data.frame(data)) {
-    stop("`data` must be a data frame.", call. = FALSE)
-  }
+rect_check_plot4_data <- function(data, value = NULL, value_col = NULL) {
 
-  if (!value_col %in% names(data)) {
-    stop("`value_col` must be a column in `data`.", call. = FALSE)
-  }
+  rect_check_values(
+    data = data,
+    value = value,
+    value_col = value_col,
+    min_rows = 4
+  )
+}
 
-  if (nrow(data) < 1) {
-    stop("`data` must contain at least one row.", call. = FALSE)
-  }
 
-  if (!is.numeric(data[[value_col]])) {
-    stop("`value_col` must be numeric.", call. = FALSE)
-  }
+rect_check_data <- function(data, value = NULL, value_col = NULL) {
 
-  invisible(TRUE)
+  rect_check_values(
+    data = data,
+    value = value,
+    value_col = value_col,
+    min_rows = 1
+  )
 }
 
 

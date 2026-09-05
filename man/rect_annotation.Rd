@@ -67,7 +67,7 @@ Annotation content and appearance can be set directly or mapped from columns
 in the original data.
 }
 \examples{
-rect_plot4() \%>\%
+rect_plot4(value = c(10, 20, 30, 40)) \%>\%
   rect_annotation()
 
 rect_plot4(rect_data_demo) \%>\%

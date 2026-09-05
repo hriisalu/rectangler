@@ -23,11 +23,11 @@
 #' A Rectangler plot object with an added label layer.
 #'
 #' @examples
-#' rect_plot4() %>%
-#'   rect_label()
+#' rect_plot4(rect_data_demo) %>%
+#'   rect_shape_label()
 #'
 #' rect_plot4(rect_data_demo) %>%
-#'   rect_label(size = 5, colour = "white")
+#'   rect_shape_label(label = c("A", "B", "C", "D"))
 #'
 #' @export
 rect_label <- function(plot,
@@ -137,7 +137,7 @@ rect_label <- function(plot,
 #' A Rectangler plot object with an added shape label layer.
 #'
 #' @examples
-#' rect_plot4() %>%
+#' rect_plot4(rect_data_demo) %>%
 #'   rect_shape_label()
 #'
 #' rect_plot4(rect_data_demo) %>%

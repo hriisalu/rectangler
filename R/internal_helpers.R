@@ -4,10 +4,28 @@
   if (is.null(x)) y else x
 }
 
-rect_recycle <- function(x, n) {
-  if (length(x) == 0) return(rep(NA, n))
-  if (length(x) == 1) return(rep(x, n))
-  rep_len(x, n)
+rect_recycle <- function(x, n, arg = "value") {
+
+  if (length(x) == 0) {
+    return(rep(NA, n))
+  }
+
+  if (length(x) == 1) {
+    return(rep(x, n))
+  }
+
+  if (length(x) != n) {
+    stop(
+      sprintf(
+        "`%s` must have length 1 or one value for each rectangle (%s values).",
+        arg,
+        n
+      ),
+      call. = FALSE
+    )
+  }
+
+  x
 }
 
 rect_size <- function(size, default) {
@@ -67,8 +85,18 @@ rect_prepare_value <- function(data,
                                arg = "value",
                                size = FALSE) {
 
+  if (!is.null(value) && !is.null(value_col)) {
+    stop(
+      sprintf(
+        "Supply either `%s` or `%s_col`, not both.",
+        arg,
+        arg
+      ),
+      call. = FALSE
+    )
+  }
+
   # read values from data column
-  # if both value and value_col are supplied, value_col wins
   if (!is.null(value_col)) {
 
     if (!value_col %in% names(data)) {
@@ -85,7 +113,7 @@ rect_prepare_value <- function(data,
   if (is.null(value)) {
     value <- rep(default, n)
   } else {
-    value <- rect_recycle(value, n)
+    value <- rect_recycle(value, n, arg = arg)
   }
 
   # convert relative sizes if requested

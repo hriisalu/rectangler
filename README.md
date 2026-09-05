@@ -13,7 +13,7 @@ library(rectangler)
 library(dplyr)
 ```
 
-<img src="man/figures/README-hero-plot-1.png" width="80%" />
+<img src="man/figures/README-hero-plot-1.png" width="65%" />
 
 ## Documentation
 
@@ -49,12 +49,14 @@ remotes::install_github("hriisalu/rectangler")
 ## The Rectangler grammar
 
 Every Rectangler graphic starts with a **constructor**, which creates
-the layout. Additional information is then added using **layers**. This
-grammar is intentionally simple: start with a layout and enrich it layer
-by layer.
+the layout. Numeric values determine rectangle areas: larger values
+create larger rectangles.
+
+Values can be supplied directly with `value` or from a data column with
+`value_col`. Layers then add styling, labels, shapes and annotations.
 
 ``` r
-rect_plot4(data) %>%
+rect_plot4(data, value_col = "value") %>%
   rect_style() %>%
   rect_label() %>%
   rect_shape() %>%
@@ -65,7 +67,7 @@ rect_plot4(data) %>%
 ## Your first plot
 
 Let’s build a simple Rectangler graphic step by step. Create example
-data.
+data. The `value` column determines rectangle areas.
 
 ``` r
 mydata <- tibble::tibble(
@@ -91,7 +93,7 @@ Start with a constructor.
 rect_plot4(mydata, value_col = "value")
 ```
 
-<img src="man/figures/README-first-plot-1-1.png" width="85%" />
+<img src="man/figures/README-first-plot-1-1.png" width="65%" />
 
 Add styling.
 
@@ -99,12 +101,12 @@ Add styling.
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 2
   )
 ```
 
-<img src="man/figures/README-first-plot-2-1.png" width="85%" />
+<img src="man/figures/README-first-plot-2-1.png" width="65%" />
 
 Add labels.
 
@@ -112,7 +114,7 @@ Add labels.
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 2
   ) %>%
   rect_label(
@@ -121,7 +123,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-3-1.png" width="85%" />
+<img src="man/figures/README-first-plot-3-1.png" width="65%" />
 
 Add corner shapes.
 
@@ -129,7 +131,7 @@ Add corner shapes.
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 2
   ) %>%
   rect_label(
@@ -139,12 +141,12 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_shape(
     position = "corner",
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 1.5
   )
 ```
 
-<img src="man/figures/README-first-plot-4-1.png" width="85%" />
+<img src="man/figures/README-first-plot-4-1.png" width="65%" />
 
 Add labels to the shapes.
 
@@ -152,7 +154,7 @@ Add labels to the shapes.
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 2
   ) %>%
   rect_label(
@@ -162,7 +164,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_shape(
     position = "corner",
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 1.5
   ) %>%
   rect_shape_label(
@@ -171,7 +173,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-5-1.png" width="85%" />
+<img src="man/figures/README-first-plot-5-1.png" width="65%" />
 
 Add annotations as the final layer.
 
@@ -179,7 +181,7 @@ Add annotations as the final layer.
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 2
   ) %>%
   rect_label(
@@ -189,7 +191,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_shape(
     position = "corner",
     fill = "white",
-    border_color = mydata$border,
+    border_colour = mydata$border,
     border_width = 1.5
   ) %>%
   rect_shape_label(
@@ -204,17 +206,22 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-<img src="man/figures/README-first-plot-6-1.png" width="85%" />
+<img src="man/figures/README-first-plot-6-1.png" width="65%" />
 
 ## Available layouts
 
 Rectangler currently provides four layout constructors.
 
 ``` r
-rect_plot4(data)
-rect_row(data)
-rect_col(data)
-rect_pyr(data)
+rect_plot4(data, value_col = "value")
+rect_row(data, value_col = "value")
+rect_col(data, value_col = "value")
+rect_pyr(data, value_col = "value")
+
+rect_plot4(value = c(10, 20, 30, 40))
+rect_row(value = c(10, 20, 30))
+rect_col(value = c(10, 20, 30))
+rect_pyr(value = c(10, 20, 30))
 ```
 
 See the [Getting started with
@@ -227,12 +234,12 @@ The README introduces the basic workflow. The vignette provides a
 complete tutorial, including:
 
 - Creating layouts
+- Supplying values
 - Styling rectangles
 - Working with labels
 - Adding shapes
 - Using annotations
-- Supplying values
-- Controlling spacing
+- Controlling size, spacing and proportions
 - Complete examples
 - Shiny integration
 

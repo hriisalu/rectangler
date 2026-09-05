@@ -67,7 +67,7 @@ inside or near the rectangles, and their appearance can be set directly or
 mapped from columns in the original data.
 }
 \examples{
-rect_plot4() \%>\%
+rect_plot4(rect_data_demo) \%>\%
   rect_shape()
 
 rect_plot4(rect_data_demo) \%>\%

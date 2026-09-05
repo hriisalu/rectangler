@@ -1,8 +1,25 @@
-test_that("rect_recycle() recycles values", {
-  expect_equal(rect_recycle(NULL, 3), rep(NA, 3))
-  expect_equal(rect_recycle("A", 3), c("A", "A", "A"))
-  expect_equal(rect_recycle(c("A", "B"), 5), c("A", "B", "A", "B", "A"))
+test_that("rect_recycle() accepts length 1 or matching length", {
+  expect_equal(
+    rect_recycle(NULL, 3),
+    rep(NA, 3)
+  )
+
+  expect_equal(
+    rect_recycle("A", 3),
+    c("A", "A", "A")
+  )
+
+  expect_equal(
+    rect_recycle(c("A", "B", "C"), 3),
+    c("A", "B", "C")
+  )
+
+  expect_error(
+    rect_recycle(c("A", "B"), 5),
+    "`value` must have length 1 or one value for each rectangle \\(5 values\\)."
+  )
 })
+
 
 test_that("rect_size() applies relative size", {
   expect_equal(rect_size(NULL, 4), 4)

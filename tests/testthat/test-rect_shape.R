@@ -470,3 +470,11 @@ test_that("rect_shape() errors when column arguments are missing from data", {
     "must be a column"
   )
 })
+
+test_that("rect_shape() errors when vector length does not match rectangles", {
+  expect_error(
+    rect_row(value = 1:6) %>%
+      rect_shape(fill = c("red", "blue", "green", "orange")),
+    "`fill` must have length 1 or one value for each rectangle \\(6 values\\)."
+  )
+})

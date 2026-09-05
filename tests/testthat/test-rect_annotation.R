@@ -133,7 +133,10 @@ test_that("rect_annotation() accepts constant text style values", {
   built <- ggplot2::ggplot_build(p)
   label_layer <- built$data[[length(built$data)]]
 
-  expect_equal(label_layer$size, rep(18, 4))
+  expect_equal(
+    label_layer$size,
+    rep(rect_defaults$text_size * 6 * 3, 4)
+  )
   expect_equal(label_layer$colour, rep("red", 4))
   expect_equal(label_layer$family, rep("serif", 4))
   expect_equal(label_layer$fontface, rep("bold", 4))
@@ -157,7 +160,10 @@ test_that("rect_annotation() accepts column-based text style values", {
   built <- ggplot2::ggplot_build(p)
   label_layer <- built$data[[length(built$data)]]
 
-  expect_equal(label_layer$size, data$text_size * 3)
+  expect_equal(
+    label_layer$size,
+    data$text_size * rect_defaults$text_size * 3
+  )
   expect_equal(label_layer$colour, data$text_colour)
 })
 
@@ -303,5 +309,13 @@ test_that("rect_annotation() errors when column arguments are missing", {
         colour_col = "missing"
       ),
     "must be a column"
+  )
+})
+
+test_that("rect_annotation() errors when vector length does not match rectangles", {
+  expect_error(
+    rect_row(value = 1:6) %>%
+      rect_annotation(label = c("A", "B", "C")),
+    "`label` must have length 1 or one value for each rectangle \\(6 values\\)."
   )
 })

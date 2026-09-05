@@ -72,3 +72,23 @@ test_that("rect_row() stores align setting", {
 
   expect_equal(settings$align, "top")
 })
+
+
+test_that("rect_row() accepts direct value vector", {
+  p <- rect_row(value = c(10, 20, 30, 40, 50, 60))
+
+  expect_true(rect_is_rectangler(p))
+  expect_s3_class(p, "ggplot")
+  expect_equal(nrow(rect_info(p)$layout), 6)
+})
+
+test_that("rect_row() errors when value and value_col are both supplied", {
+  expect_error(
+    rect_row(
+      data = rect_data_demo,
+      value = c(10, 20, 30, 40),
+      value_col = "value"
+    ),
+    "Supply either `value` or `value_col`, not both."
+  )
+})

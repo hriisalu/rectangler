@@ -56,7 +56,7 @@ Changes the fill, border, and transparency of rectangles in a Rectangler plot.
 Values can be set directly or mapped from columns in the original data.
 }
 \examples{
-rect_plot4() \%>\%
+rect_plot4(rect_data_demo) \%>\%
   rect_style(fill = "grey90", border_colour = "white")
 
 rect_plot4(rect_data_demo) \%>\%

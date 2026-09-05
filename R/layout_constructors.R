@@ -1,5 +1,6 @@
-rect_construct <- function(data,
-                           value_col,
+rect_construct <- function(data = NULL,
+                           value = NULL,
+                           value_col = NULL,
                            aspect_ratio,
                            gap,
                            padding,
@@ -7,10 +8,39 @@ rect_construct <- function(data,
                            settings = list(),
                            plot_type) {
 
-  rect_check_data(data, value_col)
+  # If no data frame is supplied, create a minimal internal data frame
+  # from the supplied values.
+  if (is.null(data)) {
+
+    if (is.null(value)) {
+      stop(
+        "Supply either `data` with `value_col`, or supply `value`.",
+        call. = FALSE
+      )
+    }
+
+    data <- data.frame(
+      .rect_id = seq_along(value)
+    )
+  }
+
+  rect_check_data(
+    data = data,
+    value = value,
+    value_col = value_col
+  )
+
+  values <- rect_prepare_value(
+    data = data,
+    value = value,
+    value_col = value_col,
+    default = NULL,
+    n = nrow(data),
+    arg = "value"
+  )
 
   sides <- rect_sides(
-    value = data[[value_col]],
+    value = values,
     aspect_ratio = aspect_ratio
   )
 
@@ -41,8 +71,14 @@ rect_construct <- function(data,
       linewidth = 0.5
     ) +
     ggplot2::coord_fixed(clip = "off") +
-    ggplot2::scale_x_continuous(limits = limits$x, expand = ggplot2::expansion(mult = 0)) +
-    ggplot2::scale_y_continuous(limits = limits$y, expand = ggplot2::expansion(mult = 0)) +
+    ggplot2::scale_x_continuous(
+      limits = limits$x,
+      expand = ggplot2::expansion(mult = 0)
+    ) +
+    ggplot2::scale_y_continuous(
+      limits = limits$y,
+      expand = ggplot2::expansion(mult = 0)
+    ) +
     ggplot2::theme_void()
 
   rect_metadata(
@@ -51,6 +87,7 @@ rect_construct <- function(data,
     layout = layout,
     settings = c(
       list(
+        value = values,
         value_col = value_col,
         aspect_ratio = aspect_ratio,
         gap = gap,
@@ -71,14 +108,21 @@ rect_construct <- function(data,
 #' Create a 2×2 rectangle layout
 #'
 #' Creates a plot consisting of four rectangles arranged in a 2×2 layout.
-#' Rectangle areas are proportional to the values in `value_col`.
+#' Rectangle areas are proportional to the supplied numeric values.
+#' Values can be supplied directly with `value` or taken from a column
+#' in `data` using `value_col`.
+#'
 #' The returned plot can be further customised by adding Rectangler layers,
 #' such as `rect_style()`, `rect_label()`, `rect_shape()`,
 #' `rect_shape_label()`, or `rect_annotation()`.
 #'
-#' @param data A data frame containing one row for each rectangle.
-#'   Only the first four rows are used.
-#' @param value_col Name of the column containing rectangle values.
+#' @param data Optional data frame containing one row for each rectangle.
+#'   Only the first four rows are used. If omitted, supply rectangle values
+#'   directly with `value`.
+#' @param value Numeric value or vector of values used to determine rectangle
+#'   areas. When `data` is omitted, at least four values must be supplied and
+#'   only the first four are used.
+#' @param value_col Name of the column in `data` containing rectangle values.
 #' @param aspect_ratio Desired rectangle aspect ratio.
 #'   Can be `"square"`, `"golden"`, a ratio string such as `"1:2"`,
 #'   or a numeric vector such as `c(1, 2)`.
@@ -90,23 +134,53 @@ rect_construct <- function(data,
 #' additional Rectangler layer functions.
 #'
 #' @examples
-#' rect_plot4()
+#' rect_plot4(value = c(10, 20, 30, 40))
 #'
 #' rect_plot4(rect_data_demo, value_col = "value")
 #'
 #' @export
-rect_plot4 <- function(data = rect_data_demo,
+rect_plot4 <- function(data = NULL,
+                       value = NULL,
                        value_col = "value",
                        aspect_ratio = "square",
                        gap = rect_defaults$gap,
                        padding = rect_defaults$padding) {
 
-  rect_check_plot4_data(data, value_col)
+  if (is.null(data) && is.null(value)) {
+    stop(
+      "Supply either `data` with `value_col`, or supply `value`.",
+      call. = FALSE
+    )
+  }
 
-  data <- data[1:4, ]
+  if (!is.null(value) && missing(value_col)) {
+    value_col <- NULL
+  }
+
+  if (is.null(data)) {
+    if (length(value) < 4) {
+      stop("`rect_plot4()` requires at least four values.", call. = FALSE)
+    }
+
+    value <- value[1:4]
+  } else {
+
+    rect_check_plot4_data(
+      data = data,
+      value = value,
+      value_col = value_col
+    )
+
+    data <- data[1:4, ]
+
+    if (!is.null(value) && length(value) > 1) {
+      value <- value[1:4]
+    }
+  }
 
   rect_construct(
     data = data,
+    value = value,
     value_col = value_col,
     aspect_ratio = aspect_ratio,
     gap = gap,
@@ -120,13 +194,19 @@ rect_plot4 <- function(data = rect_data_demo,
 #' Create a column layout of rectangles
 #'
 #' Creates a vertical layout where rectangles are stacked from top to bottom.
-#' Rectangle areas are proportional to the values in `value_col`.
+#' Rectangle areas are proportional to the supplied numeric values.
+#' Values can be supplied directly with `value` or taken from a column
+#' in `data` using `value_col`.
+#'
 #' The returned plot can be further customised by adding Rectangler layers,
 #' such as `rect_style()`, `rect_label()`, `rect_shape()`,
 #' `rect_shape_label()`, or `rect_annotation()`.
 #'
-#' @param data A data frame containing one row for each rectangle.
-#' @param value_col Name of the column containing rectangle values.
+#' @param data Optional data frame containing one row for each rectangle.
+#'   If omitted, supply rectangle values directly with `value`.
+#' @param value Numeric value or vector of values used to determine rectangle
+#'   areas.
+#' @param value_col Name of the column in `data` containing rectangle values.
 #' @param aspect_ratio Desired rectangle aspect ratio.
 #'   Can be `"square"`, `"golden"`, a ratio string such as `"1:2"`,
 #'   or a numeric vector such as `c(1, 2)`.
@@ -140,17 +220,29 @@ rect_plot4 <- function(data = rect_data_demo,
 #' additional Rectangler layer functions.
 #'
 #' @examples
-#' rect_col()
+#' rect_col(value = c(10, 20, 30, 40))
 #'
-#' rect_col(rect_data_demo, align = "right")
+#' rect_col(rect_data_demo, value_col = "value", align = "right")
 #'
 #' @export
-rect_col <- function(data = rect_data_demo,
+rect_col <- function(data = NULL,
+                     value = NULL,
                      value_col = "value",
                      aspect_ratio = "square",
                      gap = rect_defaults$gap,
                      padding = rect_defaults$padding,
                      align = "left") {
+
+  if (is.null(data) && is.null(value)) {
+    stop(
+      "Supply either `data` with `value_col`, or supply `value`.",
+      call. = FALSE
+    )
+  }
+
+  if (!is.null(value) && missing(value_col)) {
+    value_col <- NULL
+  }
 
   align <- rect_match_align(
     align = align,
@@ -163,6 +255,7 @@ rect_col <- function(data = rect_data_demo,
 
   rect_construct(
     data = data,
+    value = value,
     value_col = value_col,
     aspect_ratio = aspect_ratio,
     gap = gap,
@@ -185,13 +278,19 @@ rect_col <- function(data = rect_data_demo,
 #' Create a row layout of rectangles
 #'
 #' Creates a horizontal layout where rectangles are arranged from left to right.
-#' Rectangle areas are proportional to the values in `value_col`.
+#' Rectangle areas are proportional to the supplied numeric values.
+#' Values can be supplied directly with `value` or taken from a column
+#' in `data` using `value_col`.
+#'
 #' The returned plot can be further customised by adding Rectangler layers,
 #' such as `rect_style()`, `rect_label()`, `rect_shape()`,
 #' `rect_shape_label()`, or `rect_annotation()`.
 #'
-#' @param data A data frame containing one row for each rectangle.
-#' @param value_col Name of the column containing rectangle values.
+#' @param data Optional data frame containing one row for each rectangle.
+#'   If omitted, supply rectangle values directly with `value`.
+#' @param value Numeric value or vector of values used to determine rectangle
+#'   areas.
+#' @param value_col Name of the column in `data` containing rectangle values.
 #' @param aspect_ratio Desired rectangle aspect ratio.
 #'   Can be `"square"`, `"golden"`, a ratio string such as `"1:2"`,
 #'   or a numeric vector such as `c(1, 2)`.
@@ -205,17 +304,29 @@ rect_col <- function(data = rect_data_demo,
 #' additional Rectangler layer functions.
 #'
 #' @examples
-#' rect_row()
+#' rect_row(value = c(10, 20, 30, 40))
 #'
-#' rect_row(rect_data_demo, align = "bottom")
+#' rect_row(rect_data_demo, value_col = "value", align = "bottom")
 #'
 #' @export
-rect_row <- function(data = rect_data_demo,
+rect_row <- function(data = NULL,
+                     value = NULL,
                      value_col = "value",
                      aspect_ratio = "square",
                      gap = rect_defaults$gap,
                      padding = rect_defaults$padding,
                      align = "bottom") {
+
+  if (is.null(data) && is.null(value)) {
+    stop(
+      "Supply either `data` with `value_col`, or supply `value`.",
+      call. = FALSE
+    )
+  }
+
+  if (!is.null(value) && missing(value_col)) {
+    value_col <- NULL
+  }
 
   align <- rect_match_align(
     align = align,
@@ -232,6 +343,7 @@ rect_row <- function(data = rect_data_demo,
 
   rect_construct(
     data = data,
+    value = value,
     value_col = value_col,
     aspect_ratio = aspect_ratio,
     gap = gap,
@@ -255,13 +367,19 @@ rect_row <- function(data = rect_data_demo,
 #' Create a pyramid layout of rectangles
 #'
 #' Creates a pyramid layout where rectangles are stacked symmetrically.
-#' Rectangle areas are proportional to the values in `value_col`.
+#' Rectangle areas are proportional to the supplied numeric values.
+#' Values can be supplied directly with `value` or taken from a column
+#' in `data` using `value_col`.
+#'
 #' The returned plot can be further customised by adding Rectangler layers,
 #' such as `rect_style()`, `rect_label()`, `rect_shape()`,
 #' `rect_shape_label()`, or `rect_annotation()`.
 #'
-#' @param data A data frame containing one row for each rectangle.
-#' @param value_col Name of the column containing rectangle values.
+#' @param data Optional data frame containing one row for each rectangle.
+#'   If omitted, supply rectangle values directly with `value`.
+#' @param value Numeric value or vector of values used to determine rectangle
+#'   areas.
+#' @param value_col Name of the column in `data` containing rectangle values.
 #' @param aspect_ratio Desired rectangle aspect ratio.
 #'   Can be `"square"`, `"golden"`, a ratio string such as `"1:2"`,
 #'   or a numeric vector such as `c(1, 2)`.
@@ -273,19 +391,32 @@ rect_row <- function(data = rect_data_demo,
 #' additional Rectangler layer functions.
 #'
 #' @examples
-#' rect_pyr()
+#' rect_pyr(value = c(10, 20, 30, 40))
 #'
-#' rect_pyr(rect_data_demo)
+#' rect_pyr(rect_data_demo, value_col = "value")
 #'
 #' @export
-rect_pyr <- function(data = rect_data_demo,
+rect_pyr <- function(data = NULL,
+                     value = NULL,
                      value_col = "value",
                      aspect_ratio = "square",
                      gap = rect_defaults$gap,
                      padding = rect_defaults$padding) {
 
+  if (is.null(data) && is.null(value)) {
+    stop(
+      "Supply either `data` with `value_col`, or supply `value`.",
+      call. = FALSE
+    )
+  }
+
+  if (!is.null(value) && missing(value_col)) {
+    value_col <- NULL
+  }
+
   rect_construct(
     data = data,
+    value = value,
     value_col = value_col,
     aspect_ratio = aspect_ratio,
     gap = gap,

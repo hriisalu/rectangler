@@ -162,3 +162,25 @@ test_that("rect_style() uses alpha_col from data", {
 
   expect_equal(layer_data$.rect_alpha, c(0.2, 0.5, 0.8))
 })
+
+
+test_that("rect_style() errors when vector length does not match rectangles", {
+  expect_error(
+    rect_row(value = 1:6) %>%
+      rect_style(
+        border_colour = c("red", "blue", "green", "orange")
+      ),
+    "`border_colour` must have length 1 or one value for each rectangle \\(6 values\\)."
+  )
+})
+
+test_that("rect_style() errors when value and column are both supplied", {
+  expect_error(
+    rect_plot4(rect_data_demo) %>%
+      rect_style(
+        fill = "red",
+        fill_col = "fill"
+      ),
+    "Supply either `fill` or `fill_col`, not both."
+  )
+})

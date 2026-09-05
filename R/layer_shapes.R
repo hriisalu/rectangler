@@ -147,7 +147,7 @@ rect_shape_data <- function(layout, position, plot_type, offset_x, offset_y) {
 #' A Rectangler plot object with an added shape layer.
 #'
 #' @examples
-#' rect_plot4() %>%
+#' rect_plot4(rect_data_demo) %>%
 #'   rect_shape()
 #'
 #' rect_plot4(rect_data_demo) %>%
@@ -192,8 +192,8 @@ rect_shape <- function(plot,
     plot_type = info$plot_type
   )
 
-  offset_x <- rect_recycle(offset_x, n)
-  offset_y <- rect_recycle(offset_y, n)
+  offset_x <- rect_recycle(offset_x, n, arg = "offset_x")
+  offset_y <- rect_recycle(offset_y, n, arg = "offset_y")
 
   shape <- rect_prepare_value(
     data = layout,

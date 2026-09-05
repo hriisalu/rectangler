@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "figures/vignette-",
-  out.width = "85%",
+  out.width = "65%",
   fig.width = 8,
   fig.height = 7,
   dpi = 300,
@@ -61,6 +61,10 @@ rect_plot4(data) %>%
 
 The examples in this vignette use four fictional domains.
 
+Each rectangle is based on a numeric value. These values determine rectangle
+area: larger values create larger rectangles and smaller values create smaller
+rectangles.
+
 ```{r data}
 mydata <- tibble::tibble(
   value = c(2643, 6939, 2227, 3764),
@@ -85,13 +89,14 @@ mydata <- tibble::tibble(
 
 Every `rectangler` graphic starts with a constructor.
 
-A constructor creates the basic rectangular layout.
+A constructor creates the basic rectangular layout and uses the supplied values
+to determine rectangle areas.
 
 ```{r first-plot-1}
 rect_plot4(mydata, value_col = "value")
 ```
 
-Layers then add styling, labels, shapes and annotations.
+You can then add styling, labels, shapes and annotations with layers.
 
 ```{r first-plot-2}
 rect_plot4(mydata, value_col = "value") %>%
@@ -138,7 +143,7 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-```{r first-plot-5}
+```{r first-plot-5, fig.height=5}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -175,15 +180,24 @@ constructor(data) %>%
   layer()
 ```
 
+
 ## Creating layouts
 
 Constructors create the initial layout. They do not add labels or styling.
 
+`rect_plot4()` always creates four rectangles. `rect_row()`, `rect_col()` and
+`rect_pyr()` can create any number of rectangles.
+
 ```{r constructors-list, eval = FALSE}
-rect_plot4(data)
-rect_row(data)
-rect_col(data)
-rect_pyr(data)
+rect_plot4(data, value_col = "value")
+rect_row(data, value_col = "value")
+rect_col(data, value_col = "value")
+rect_pyr(data, value_col = "value")
+
+rect_plot4(value = c(10, 20, 30, 40))
+rect_row(value = c(10, 20, 30))
+rect_col(value = c(10, 20, 30))
+rect_pyr(value = c(10, 20, 30))
 ```
 
 ### Four-part layout
@@ -206,7 +220,7 @@ rect_plot4(mydata, value_col = "value") %>%
 
 `rect_row()` arranges rectangles in a row.
 
-```{r constructor-row}
+```{r constructor-row, fig.height=3.5}
 rect_row(mydata, value_col = "value") %>%
   rect_style(
     fill_col = "fill",
@@ -254,44 +268,98 @@ rect_pyr(pyr_data, value_col = "value") %>%
   )
 ```
 
-## Styling rectangles
+The constructors determine how many rectangles are created and how their areas are sized. The next section explains how values are supplied to constructors and layers.
 
-`rect_style()` controls the fill, border colour, border width, border type and transparency of rectangles.
+## Supplying values
 
-```{r style-basic}
-rect_plot4(mydata, value_col = "value") %>%
-  rect_style(
-    fill = "white",
-    border_colour_col = "border",
-    border_width = 2
-  )
-```
+Most `rectangler` arguments can be supplied in three ways:
 
-A fixed value is applied to all rectangles.
+- one value → used for every rectangle;
+- a vector → one value for each rectangle;
+- a data column → one value for each rectangle.
 
-```{r style-fixed}
+A direct value must have either length 1 or one value for every rectangle; otherwise `rectangler` returns an error.
+
+The `data` argument can still be used together with a direct `value` vector. In that case, `data` provides labels, colours or other layer settings, while `value` determines rectangle areas.
+
+Do not supply `value` and `value_col` at the same time.
+
+For `rect_row()`, `rect_col()` and `rect_pyr()`, the number of rectangles is determined by the number of rows in `data` or, when no data is supplied, by the length of `value`. `rect_plot4()` always creates four rectangles.
+
+This number also determines how many values vector-based layer arguments must contain.
+
+### One value for all rectangles
+
+A single value is used for every rectangle.
+
+```{r supplying-one}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
     border_colour = "#3B82A0",
     border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "label",
+    colour = "black"
   )
 ```
 
-A vector gives one value per rectangle.
+### A vector with one value per rectangle
 
-```{r style-vector}
+A vector supplies one value for each rectangle.
+
+```{r supplying-vector}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
-    fill = "white",
+    fill = c("#E7F2F7", "#EDF5E7", "#FBF0E3", "#F6E8EF"),
     border_colour = c("#3B82A0", "#6A994E", "#D17A22", "#A44A6F"),
     border_width = c(1, 2, 3, 4)
+  ) %>%
+  rect_label(
+    label = c("A", "B", "C", "D"),
+    size = c(0.8, 1, 1.2, 1.4)
   )
 ```
 
-A column argument reads values from the data.
+### A column from the data
 
-```{r style-column}
+Column arguments usually end with `_col`.
+
+They take the name of a column as a string. This is useful when the data itself contains labels, colours, sizes or other visual settings, for example inside a function or a Shiny app.
+
+```{r supplying-column}
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill_col = "fill",
+    border_colour_col = "border",
+    border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "text"
+  ) %>%
+  rect_shape(
+    position = "corner",
+    fill_col = "shape_fill",
+    border_colour = "white"
+  ) %>%
+  rect_shape_label(
+    label_col = "label",
+    colour = "white"
+  )
+```
+
+
+
+## Styling rectangles
+
+`rect_style()` controls rectangle fill, border colour, border width, border type
+and transparency.
+
+These settings can be supplied as a single value, a vector or from data columns,
+using the rules described above.
+
+```{r style-basic}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill_col = "fill",
@@ -304,6 +372,10 @@ rect_plot4(mydata, value_col = "value") %>%
 
 `rect_label()` adds text inside rectangles.
 
+Labels can be supplied directly with `label` or read from a data column with
+`label_col`. Their appearance can be adjusted with arguments such as `size`,
+`colour`, `family` and `fontface`.
+
 ```{r label-basic}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
@@ -314,26 +386,13 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_label(label_col = "text")
 ```
 
-Labels can also be supplied directly.
-
-```{r label-direct}
-rect_plot4(mydata, value_col = "value") %>%
-  rect_style(
-    fill = "white",
-    border_colour_col = "border",
-    border_width = 2
-  ) %>%
-  rect_label(
-    label = c("A", "B", "C", "D"),
-    size = 1.2
-  )
-```
 
 ## Adding shapes
 
 `rect_shape()` adds small shapes to rectangles.
 
-Shapes can be used as markers, category badges or visual anchors.
+Shapes can be used as markers, category badges or visual anchors. Their appearance
+can be controlled with arguments such as `fill`, `border_colour` and `border_width`.
 
 ```{r shape-basic}
 rect_plot4(mydata, value_col = "value") %>%
@@ -350,7 +409,9 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-`rect_shape_label()` adds text to these shapes.
+### Shape labels
+
+`rect_shape_label()` adds text to these shapes. Label appearance can be controlled with arguments such as `size`, `colour` and `fontface`.
 
 ```{r shape-label-basic}
 rect_plot4(mydata, value_col = "value") %>%
@@ -372,9 +433,19 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-Shape positions can be adjusted.
+### Shape positions
 
-```{r shape-position, fig.show = "hold", out.width = "48%"}
+Shape positions can be adjusted with the `position` argument.
+
+Available positions include `"corner"`, `"top-left"`, `"top-right"`,
+`"bottom-left"`, `"bottom-right"`, `"left"`, `"right"`, `"top"` and `"bottom"`.
+
+For `rect_plot4()`, shapes can also alternate between sides using
+`"left-right"` or `"top-bottom"`.
+
+The examples below compare `"corner"` and `"top-bottom"`.
+
+```{r shape-position, fig.show = "hold", out.width = "45%"}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -413,9 +484,11 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-Offsets move shapes without changing the rectangles.
+### Shape offsets
 
-```{r shape-offset, fig.show = "hold", out.width = "48%"}
+Offsets move shapes without changing the rectangles. Use `offset_x` and `offset_y` to fine-tune their horizontal and vertical position.
+
+```{r shape-offset, fig.show = "hold", out.width = "45%"}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -445,13 +518,65 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
+### Shape types
+
+The `shape` argument controls the symbol used by `rect_shape()`.
+
+Rectangler uses the same shape values as `ggplot2::geom_point()`. For example:
+
+- `21` = circle
+- `22` = square
+- `23` = diamond
+- `24` = triangle up
+- `25` = triangle down
+
+```{r shape-types, fig.show='hold', out.width='45%'}
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_colour_col = "border",
+    border_width = 2
+  ) %>%
+  rect_label(label_col = "label") %>%
+  rect_shape(
+    shape = 23,
+    fill = "white",
+    border_colour_col = "border",
+    border_width = 1.5
+  ) %>%
+  rect_shape_label(
+    label_col = "label",
+    colour_col = "border"
+  )
+
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_colour_col = "border",
+    border_width = 2
+  ) %>%
+  rect_label(label_col = "label") %>%
+  rect_shape(
+    shape = 24,
+    fill = "#E3A857",
+    border_colour = "#8C5A2B",
+    border_width = 1.5
+  ) %>%
+  rect_shape_label(
+    label_col = "label",
+    colour = "white"
+  )
+```
+
 ## Using annotations
 
 `rect_annotation()` adds comments around the layout.
 
-Annotations are useful when the plot should explain why each object matters.
+Annotations are useful when the plot should explain why each rectangle matters.
+They can be supplied directly or from a data column, and the available
+`position` values depend on the layout type.
 
-```{r annotation-basic}
+```{r annotation-basic, fig.height=5}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -469,93 +594,26 @@ rect_plot4(mydata, value_col = "value") %>%
   )
 ```
 
-Annotation positions can use intuitive names.
-
-For example, `position = "horizontal"` and `position = "h"` both mean horizontal annotations.
+Annotation positions also accept intuitive aliases. For example,
+`position = "horizontal"` and `position = "h"` mean the same thing.
 
 ```{r annotation-position, eval = FALSE}
 rect_annotation(position = "horizontal")
 rect_annotation(position = "h")
 ```
 
-## Supplying values
 
-Many `rectangler` arguments can be supplied in three ways.
-
-### One value for all objects
-
-A single value is used for every rectangle, label or shape.
-
-```{r supplying-one}
-rect_plot4(mydata, value_col = "value") %>%
-  rect_style(
-    fill = "white",
-    border_colour = "#3B82A0",
-    border_width = 2
-  ) %>%
-  rect_label(
-    label_col = "label",
-    colour = "black"
-  )
-```
-
-### A vector with one value per object
-
-A vector is recycled only when this is safe. Usually it should have one value for each object.
-
-```{r supplying-vector}
-rect_plot4(mydata, value_col = "value") %>%
-  rect_style(
-    fill = c("#E7F2F7", "#EDF5E7", "#FBF0E3", "#F6E8EF"),
-    border_colour = c("#3B82A0", "#6A994E", "#D17A22", "#A44A6F"),
-    border_width = c(1, 2, 3, 4)
-  ) %>%
-  rect_label(
-    label = c("A", "B", "C", "D"),
-    size = c(0.8, 1, 1.2, 1.4)
-  )
-```
-
-### A column from the data
-
-Column arguments usually end with `_col`.
-
-They take the name of a column as a string.
-
-```{r supplying-column}
-rect_plot4(mydata, value_col = "value") %>%
-  rect_style(
-    fill_col = "fill",
-    border_colour_col = "border",
-    border_width = 2
-  ) %>%
-  rect_label(
-    label_col = "text"
-  ) %>%
-  rect_shape(
-    position = "corner",
-    fill_col = "shape_fill",
-    border_colour = "white"
-  ) %>%
-  rect_shape_label(
-    label_col = "label",
-    colour = "white"
-  )
-```
-
-This pattern is useful when the plot is created inside a function or a Shiny app, because the data carries the visual settings.
-
-## Controlling spacing and proportions
+## Controlling size, spacing and proportions
 
 Many visual arguments in `rectangler` use relative sizes.
 
-The default value is usually `1`.
-
-Use values below `1` to make an element smaller and values above `1` to make it larger.
+A value of `1` usually means the default size. Values below `1` make an element smaller, while values above `1` make it larger.
 
 ### Label size
 
-```{r compare-label-size, fig.show = "hold", out.width = "48%"}
+`size` controls label size relative to the default text size.
+
+```{r compare-label-size, fig.show = "hold", out.width = "45%"}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -581,7 +639,9 @@ rect_plot4(mydata, value_col = "value") %>%
 
 ### Shape size
 
-```{r compare-shape-size, fig.show = "hold", out.width = "48%"}
+`size` controls shape size relative to the default shape size.
+
+```{r compare-shape-size, fig.show = "hold", out.width = "45%"}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -590,7 +650,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape(
     position = "corner",
-    size = 0.7,
+    size = 1,
     fill_col = "shape_fill",
     border_colour = "white"
   )
@@ -603,7 +663,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape(
     position = "corner",
-    size = 1.4,
+    size = 2.5,
     fill_col = "shape_fill",
     border_colour = "white"
   )
@@ -611,7 +671,11 @@ rect_plot4(mydata, value_col = "value") %>%
 
 ### Annotation space
 
-```{r compare-annotation-space, fig.show = "hold", out.width = "48%"}
+`space` controls how much room is reserved around the plot for annotations.
+
+For short annotations, a small amount of extra space may be enough. Longer annotation text may need more room. Increasing `space` expands the plotting area around the rectangles so that the text fits without being clipped.
+
+```{r compare-annotation-space, fig.show = "hold", out.width="80%", fig.height=5}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -622,10 +686,23 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 0.5
+    space = 1.2
+  )
+```
+
+```{r compare-annotation-long-space, fig.show = "hold", out.width="80%", fig.height=3}
+
+mydata_space <- mydata %>%
+  mutate(
+    annotation = c(
+      "Top performer in the latest year",
+      "Highest growth compared\nwith the previous baseline year",
+      "Largest investment among all domains",
+      "Lowest cost per completed activity"
+    )
   )
 
-rect_plot4(mydata, value_col = "value") %>%
+rect_plot4(mydata_space, value_col = "value") %>%
   rect_style(
     fill = "white",
     border_colour_col = "border",
@@ -635,7 +712,8 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 2
+    space = 4,
+    size = 0.8
   )
 ```
 
@@ -643,7 +721,7 @@ rect_plot4(mydata, value_col = "value") %>%
 
 `gap` controls the space between rectangles in the constructor.
 
-```{r compare-gap, fig.show = "hold", out.width = "48%"}
+```{r compare-gap, fig.show = "hold", out.width = "45%"}
 rect_plot4(mydata, value_col = "value", gap = 0.02) %>%
   rect_style(
     fill = "white",
@@ -665,7 +743,7 @@ rect_plot4(mydata, value_col = "value", gap = 0.15) %>%
 
 `padding` controls the space between the plot and the outer plotting area.
 
-```{r compare-padding, fig.show = "hold", out.width = "48%"}
+```{r compare-padding, fig.show = "hold", out.width = "45%"}
 rect_plot4(mydata, value_col = "value", padding = 0.02) %>%
   rect_style(
     fill = "white",
@@ -687,7 +765,7 @@ rect_plot4(mydata, value_col = "value", padding = 0.20) %>%
 
 `aspect_ratio` controls the shape of the rectangles.
 
-```{r compare-aspect-ratio, fig.show = "hold", out.width = "48%"}
+```{r compare-aspect-ratio, fig.show = "hold", out.width = "45%"}
 rect_row(mydata, value_col = "value", aspect_ratio = "square") %>%
   rect_style(
     fill = "white",
@@ -707,11 +785,11 @@ rect_row(mydata, value_col = "value", aspect_ratio = "1:2") %>%
 
 ## Complete examples
 
-This section shows a few complete uses of the grammar. They are not a repeat of the first plot, but variations for different tasks.
+This section shows a few complete examples for different tasks.
 
 ### Simple comparison
 
-```{r complete-simple}
+```{r complete-simple, fig.height=3.5}
 rect_row(mydata, value_col = "value") %>%
   rect_style(
     fill_col = "fill",
@@ -724,7 +802,7 @@ rect_row(mydata, value_col = "value") %>%
   )
 ```
 
-### Badge-style comparison
+### Comparison with labeled shapes
 
 ```{r complete-badge}
 rect_plot4(mydata, value_col = "value") %>%
@@ -775,6 +853,9 @@ rect_col(mydata, value_col = "value") %>%
 
 `rectangler` plots can be used in Shiny with `renderPlot()`.
 
+A Shiny app can keep labels, colours and annotations in the data and pass them to
+`rectangler` through `_col` arguments.
+
 ```{r shiny, eval = FALSE}
 output$rectangler_plot <- shiny::renderPlot({
   rect_plot4(mydata, value_col = "value") %>%
@@ -790,10 +871,11 @@ output$rectangler_plot <- shiny::renderPlot({
 })
 ```
 
-A Shiny app can keep labels, colours and annotations in the data and pass them to `rectangler` through `_col` arguments.
 
 ## Summary
 
 `rectangler` is useful when you want to compare a small number of objects with a clear visual structure.
 
-Start with a constructor. Add style, labels, shapes and annotations. Use one value, a vector or a data column depending on whether the setting should apply to all objects, each object separately or come from the data.
+Start with a constructor. Add style, labels, shapes and annotations as needed.
+
+Supply settings as a single value, one value per rectangle or from a data column. For direct vectors, use either one value or exactly one value per rectangle. For arguments with a `*_col` version, supply either the direct value or the column name, not both.

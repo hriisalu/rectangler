@@ -5,7 +5,8 @@
 \title{Create a 2×2 rectangle layout}
 \usage{
 rect_plot4(
-  data = rect_data_demo,
+  data = NULL,
+  value = NULL,
   value_col = "value",
   aspect_ratio = "square",
   gap = rect_defaults$gap,
@@ -13,10 +14,15 @@ rect_plot4(
 )
 }
 \arguments{
-\item{data}{A data frame containing one row for each rectangle.
-Only the first four rows are used.}
+\item{data}{Optional data frame containing one row for each rectangle.
+Only the first four rows are used. If omitted, supply rectangle values
+directly with \code{value}.}
 
-\item{value_col}{Name of the column containing rectangle values.}
+\item{value}{Numeric value or vector of values used to determine rectangle
+areas. When \code{data} is omitted, at least four values must be supplied and
+only the first four are used.}
+
+\item{value_col}{Name of the column in \code{data} containing rectangle values.}
 
 \item{aspect_ratio}{Desired rectangle aspect ratio.
 Can be \code{"square"}, \code{"golden"}, a ratio string such as \code{"1:2"},
@@ -32,13 +38,17 @@ additional Rectangler layer functions.
 }
 \description{
 Creates a plot consisting of four rectangles arranged in a 2×2 layout.
-Rectangle areas are proportional to the values in \code{value_col}.
+Rectangle areas are proportional to the supplied numeric values.
+Values can be supplied directly with \code{value} or taken from a column
+in \code{data} using \code{value_col}.
+}
+\details{
 The returned plot can be further customised by adding Rectangler layers,
 such as \code{rect_style()}, \code{rect_label()}, \code{rect_shape()},
 \code{rect_shape_label()}, or \code{rect_annotation()}.
 }
 \examples{
-rect_plot4()
+rect_plot4(value = c(10, 20, 30, 40))
 
 rect_plot4(rect_data_demo, value_col = "value")
 

@@ -62,3 +62,12 @@ test_that("rect_pyr() creates narrower rectangles for smaller values", {
   expect_true(widths[2] < widths[1])
   expect_true(widths[3] < widths[2])
 })
+
+
+test_that("rect_pyr() accepts direct value vector", {
+  p <- rect_pyr(value = c(10, 20, 30, 40, 50))
+
+  expect_true(rect_is_rectangler(p))
+  expect_s3_class(p, "ggplot")
+  expect_equal(nrow(rect_info(p)$layout), 5)
+})

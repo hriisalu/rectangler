@@ -72,3 +72,12 @@ test_that("rect_col() stores align setting", {
 
   expect_equal(settings$align, "right")
 })
+
+
+test_that("rect_col() accepts direct value vector", {
+  p <- rect_col(value = c(10, 20, 30, 40, 50))
+
+  expect_true(rect_is_rectangler(p))
+  expect_s3_class(p, "ggplot")
+  expect_equal(nrow(rect_info(p)$layout), 5)
+})

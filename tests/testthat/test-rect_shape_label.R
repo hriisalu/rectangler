@@ -150,7 +150,10 @@ test_that("rect_shape_label() accepts constant text style values", {
   built <- ggplot2::ggplot_build(p)
   label_layer <- built$data[[length(built$data)]]
 
-  expect_equal(label_layer$size, rep(18, 4))
+  expect_equal(
+    label_layer$size,
+    rep(rect_defaults$text_size * 6 * 3, 4)
+  )
   expect_equal(label_layer$colour, rep("red", 4))
   expect_equal(label_layer$family, rep("serif", 4))
   expect_equal(label_layer$fontface, rep("bold", 4))
@@ -174,7 +177,10 @@ test_that("rect_shape_label() accepts column-based text style values", {
   built <- ggplot2::ggplot_build(p)
   label_layer <- built$data[[length(built$data)]]
 
-  expect_equal(label_layer$size, data$text_size * 3)
+  expect_equal(
+    label_layer$size,
+    data$text_size * rect_defaults$text_size * 3
+  )
   expect_equal(label_layer$colour, data$text_colour)
 })
 
@@ -302,4 +308,12 @@ test_that("rect_shape_label() supports different positions", {
     expect_equal(label_layer$x, shape_layer$x)
     expect_equal(label_layer$y, shape_layer$y)
   }
+})
+
+test_that("rect_shape_label() errors when vector length does not match rectangles", {
+  expect_error(
+    rect_row(value = 1:6) %>%
+      rect_shape_label(label = c("A", "B", "C")),
+    "`label` must have length 1 or one value for each rectangle \\(6 values\\)."
+  )
 })
