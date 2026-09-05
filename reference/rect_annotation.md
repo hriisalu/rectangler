@@ -106,7 +106,7 @@ A Rectangler plot object with an added annotation layer.
 ## Examples
 
 ``` r
-rect_plot4() %>%
+rect_plot4(value = c(10, 20, 30, 40)) %>%
   rect_annotation()
 
 

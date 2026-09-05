@@ -1,21 +1,16 @@
 # Create a pyramid layout of rectangles
 
 Creates a pyramid layout where rectangles are stacked symmetrically.
-Rectangle areas are proportional to the values in `value_col`. The
-returned plot can be further customised by adding Rectangler layers,
-such as
-[`rect_style()`](https://hriisalu.github.io/rectangler/reference/rect_style.md),
-[`rect_label()`](https://hriisalu.github.io/rectangler/reference/rect_label.md),
-[`rect_shape()`](https://hriisalu.github.io/rectangler/reference/rect_shape.md),
-[`rect_shape_label()`](https://hriisalu.github.io/rectangler/reference/rect_shape_label.md),
-or
-[`rect_annotation()`](https://hriisalu.github.io/rectangler/reference/rect_annotation.md).
+Rectangle areas are proportional to the supplied numeric values. Values
+can be supplied directly with `value` or taken from a column in `data`
+using `value_col`.
 
 ## Usage
 
 ``` r
 rect_pyr(
-  data = rect_data_demo,
+  data = NULL,
+  value = NULL,
   value_col = "value",
   aspect_ratio = "square",
   gap = rect_defaults$gap,
@@ -27,11 +22,16 @@ rect_pyr(
 
 - data:
 
-  A data frame containing one row for each rectangle.
+  Optional data frame containing one row for each rectangle. If omitted,
+  supply rectangle values directly with `value`.
+
+- value:
+
+  Numeric value or vector of values used to determine rectangle areas.
 
 - value_col:
 
-  Name of the column containing rectangle values.
+  Name of the column in `data` containing rectangle values.
 
 - aspect_ratio:
 
@@ -51,12 +51,23 @@ rect_pyr(
 A Rectangler plot object (a `ggplot`) that can be extended with
 additional Rectangler layer functions.
 
+## Details
+
+The returned plot can be further customised by adding Rectangler layers,
+such as
+[`rect_style()`](https://hriisalu.github.io/rectangler/reference/rect_style.md),
+[`rect_label()`](https://hriisalu.github.io/rectangler/reference/rect_label.md),
+[`rect_shape()`](https://hriisalu.github.io/rectangler/reference/rect_shape.md),
+[`rect_shape_label()`](https://hriisalu.github.io/rectangler/reference/rect_shape_label.md),
+or
+[`rect_annotation()`](https://hriisalu.github.io/rectangler/reference/rect_annotation.md).
+
 ## Examples
 
 ``` r
-rect_pyr()
+rect_pyr(value = c(10, 20, 30, 40))
 
 
-rect_pyr(rect_data_demo)
+rect_pyr(rect_data_demo, value_col = "value")
 
 ```

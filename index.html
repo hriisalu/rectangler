@@ -53,7 +53,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hriisalu.github.io/rectangler/">rectangler</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-hero-plot-1.png" width="80%"></p>
+<p><img src="reference/figures/README-hero-plot-1.png" width="65%"></p>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
@@ -85,9 +85,10 @@
 <div class="section level2">
 <h2 id="the-rectangler-grammar">The Rectangler grammar<a class="anchor" aria-label="anchor" href="#the-rectangler-grammar"></a>
 </h2>
-<p>Every Rectangler graphic starts with a <strong>constructor</strong>, which creates the layout. Additional information is then added using <strong>layers</strong>. This grammar is intentionally simple: start with a layout and enrich it layer by layer.</p>
+<p>Every Rectangler graphic starts with a <strong>constructor</strong>, which creates the layout. Numeric values determine rectangle areas: larger values create larger rectangles.</p>
+<p>Values can be supplied directly with <code>value</code> or from a data column with <code>value_col</code>. Layers then add styling, labels, shapes and annotations.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_style.html">rect_style</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_label.html">rect_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_shape.html">rect_shape</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -97,7 +98,7 @@
 <div class="section level2">
 <h2 id="your-first-plot">Your first plot<a class="anchor" aria-label="anchor" href="#your-first-plot"></a>
 </h2>
-<p>Let’s build a simple Rectangler graphic step by step. Create example data.</p>
+<p>Let’s build a simple Rectangler graphic step by step. Create example data. The <code>value</code> column determines rectangle areas.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2643</span>, <span class="fl">6939</span>, <span class="fl">2227</span>, <span class="fl">3764</span><span class="op">)</span>,</span>
@@ -117,35 +118,35 @@
 <p>Start with a constructor.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-first-plot-1-1.png" width="85%"></p>
+<p><img src="reference/figures/README-first-plot-1-1.png" width="65%"></p>
 <p>Add styling.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-first-plot-2-1.png" width="85%"></p>
+<p><img src="reference/figures/README-first-plot-2-1.png" width="65%"></p>
 <p>Add labels.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
 <span>    label_col <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-first-plot-3-1.png" width="85%"></p>
+<p><img src="reference/figures/README-first-plot-3-1.png" width="65%"></p>
 <p>Add corner shapes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
@@ -155,16 +156,16 @@
 <span>  <span class="fu"><a href="reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">1.5</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-first-plot-4-1.png" width="85%"></p>
+<p><img src="reference/figures/README-first-plot-4-1.png" width="65%"></p>
 <p>Add labels to the shapes.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
@@ -174,20 +175,20 @@
 <span>  <span class="fu"><a href="reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">1.5</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_shape_label.html">rect_shape_label</a></span><span class="op">(</span></span>
 <span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">1.2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-first-plot-5-1.png" width="85%"></p>
+<p><img src="reference/figures/README-first-plot-5-1.png" width="65%"></p>
 <p>Add annotations as the final layer.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
@@ -197,7 +198,7 @@
 <span>  <span class="fu"><a href="reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_color <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">1.5</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/rect_shape_label.html">rect_shape_label</a></span><span class="op">(</span></span>
@@ -210,17 +211,22 @@
 <span>    size <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>    space <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-first-plot-6-1.png" width="85%"></p>
+<p><img src="reference/figures/README-first-plot-6-1.png" width="65%"></p>
 </div>
 <div class="section level2">
 <h2 id="available-layouts">Available layouts<a class="anchor" aria-label="anchor" href="#available-layouts"></a>
 </h2>
 <p>Rectangler currently provides four layout constructors.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/rect_row.html">rect_row</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/rect_col.html">rect_col</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/rect_pyr.html">rect_pyr</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/rect_row.html">rect_row</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/rect_col.html">rect_col</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/rect_pyr.html">rect_pyr</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/rect_row.html">rect_row</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/rect_col.html">rect_col</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/rect_pyr.html">rect_pyr</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>See the <a href="https://hriisalu.github.io/rectangler/articles/rectangler.html">Getting started with rectangler</a> vignette for examples and a visual comparison of the available layouts.</p>
 </div>
 <div class="section level2">
@@ -229,12 +235,12 @@
 <p>The README introduces the basic workflow. The vignette provides a complete tutorial, including:</p>
 <ul>
 <li>Creating layouts</li>
+<li>Supplying values</li>
 <li>Styling rectangles</li>
 <li>Working with labels</li>
 <li>Adding shapes</li>
 <li>Using annotations</li>
-<li>Supplying values</li>
-<li>Controlling spacing</li>
+<li>Controlling size, spacing and proportions</li>
 <li>Complete examples</li>
 <li>Shiny integration</li>
 </ul>

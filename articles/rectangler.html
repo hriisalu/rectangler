@@ -99,6 +99,9 @@ step by step.</p>
 <h2 id="example-data">Example data<a class="anchor" aria-label="anchor" href="#example-data"></a>
 </h2>
 <p>The examples in this vignette use four fictional domains.</p>
+<p>Each rectangle is based on a numeric value. These values determine
+rectangle area: larger values create larger rectangles and smaller
+values create smaller rectangles.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2643</span>, <span class="fl">6939</span>, <span class="fl">2227</span>, <span class="fl">3764</span><span class="op">)</span>,</span>
@@ -122,11 +125,13 @@ step by step.</p>
 <h2 id="your-first-plot">Your first plot<a class="anchor" aria-label="anchor" href="#your-first-plot"></a>
 </h2>
 <p>Every <code>rectangler</code> graphic starts with a constructor.</p>
-<p>A constructor creates the basic rectangular layout.</p>
+<p>A constructor creates the basic rectangular layout and uses the
+supplied values to determine rectangle areas.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-first-plot-1-1.png" class="r-plt" alt="" width="85%"></p>
-<p>Layers then add styling, labels, shapes and annotations.</p>
+<p><img src="figures/vignette-first-plot-1-1.png" class="r-plt" alt="" width="65%"></p>
+<p>You can then add styling, labels, shapes and annotations with
+layers.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -134,7 +139,7 @@ step by step.</p>
 <span>    border_colour <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">border</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-first-plot-2-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-first-plot-2-1.png" class="r-plt" alt="" width="65%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -146,7 +151,7 @@ step by step.</p>
 <span>    label_col <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-first-plot-3-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-first-plot-3-1.png" class="r-plt" alt="" width="65%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -168,7 +173,7 @@ step by step.</p>
 <span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">1.2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-first-plot-4-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-first-plot-4-1.png" class="r-plt" alt="" width="65%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -195,7 +200,7 @@ step by step.</p>
 <span>    position <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
 <span>    space <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-first-plot-5-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-first-plot-5-1.png" class="r-plt" alt="" width="65%"></p>
 <p>The same grammar is used throughout the package:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">constructor</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -208,11 +213,19 @@ step by step.</p>
 </h2>
 <p>Constructors create the initial layout. They do not add labels or
 styling.</p>
+<p><code><a href="../reference/rect_plot4.html">rect_plot4()</a></code> always creates four rectangles.
+<code><a href="../reference/rect_row.html">rect_row()</a></code>, <code><a href="../reference/rect_col.html">rect_col()</a></code> and
+<code><a href="../reference/rect_pyr.html">rect_pyr()</a></code> can create any number of rectangles.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/rect_row.html">rect_row</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/rect_col.html">rect_col</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/rect_pyr.html">rect_pyr</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rect_row.html">rect_row</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rect_col.html">rect_col</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rect_pyr.html">rect_pyr</a></span><span class="op">(</span><span class="va">data</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rect_row.html">rect_row</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rect_col.html">rect_col</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rect_pyr.html">rect_pyr</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="four-part-layout">Four-part layout<a class="anchor" aria-label="anchor" href="#four-part-layout"></a>
 </h3>
@@ -226,7 +239,7 @@ styling.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-constructor-plot4-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-constructor-plot4-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level3">
 <h3 id="row-layout">Row layout<a class="anchor" aria-label="anchor" href="#row-layout"></a>
@@ -240,7 +253,7 @@ styling.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-constructor-row-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-constructor-row-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level3">
 <h3 id="column-layout">Column layout<a class="anchor" aria-label="anchor" href="#column-layout"></a>
@@ -254,7 +267,7 @@ styling.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-constructor-col-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-constructor-col-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level3">
 <h3 id="pyramid-layout">Pyramid layout<a class="anchor" aria-label="anchor" href="#pyramid-layout"></a>
@@ -278,41 +291,107 @@ styling.</p>
 <span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-constructor-pyr-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-constructor-pyr-1.png" class="r-plt" alt="" width="65%"></p>
+<p>The constructors determine how many rectangles are created and how
+their areas are sized. The next section explains how values are supplied
+to constructors and layers.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="styling-rectangles">Styling rectangles<a class="anchor" aria-label="anchor" href="#styling-rectangles"></a>
+<h2 id="supplying-values">Supplying values<a class="anchor" aria-label="anchor" href="#supplying-values"></a>
 </h2>
-<p><code><a href="../reference/rect_style.html">rect_style()</a></code> controls the fill, border colour, border
-width, border type and transparency of rectangles.</p>
+<p>Most <code>rectangler</code> arguments can be supplied in three
+ways:</p>
+<ul>
+<li>one value → used for every rectangle;</li>
+<li>a vector → one value for each rectangle;</li>
+<li>a data column → one value for each rectangle.</li>
+</ul>
+<p>A direct value must have either length 1 or one value for every
+rectangle; otherwise <code>rectangler</code> returns an error.</p>
+<p>The <code>data</code> argument can still be used together with a
+direct <code>value</code> vector. In that case, <code>data</code>
+provides labels, colours or other layer settings, while
+<code>value</code> determines rectangle areas.</p>
+<p>Do not supply <code>value</code> and <code>value_col</code> at the
+same time.</p>
+<p>For <code><a href="../reference/rect_row.html">rect_row()</a></code>, <code><a href="../reference/rect_col.html">rect_col()</a></code> and
+<code><a href="../reference/rect_pyr.html">rect_pyr()</a></code>, the number of rectangles is determined by the
+number of rows in <code>data</code> or, when no data is supplied, by the
+length of <code>value</code>. <code><a href="../reference/rect_plot4.html">rect_plot4()</a></code> always creates
+four rectangles.</p>
+<p>This number also determines how many values vector-based layer
+arguments must contain.</p>
+<div class="section level3">
+<h3 id="one-value-for-all-rectangles">One value for all rectangles<a class="anchor" aria-label="anchor" href="#one-value-for-all-rectangles"></a>
+</h3>
+<p>A single value is used for every rectangle.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
-<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-style-basic-1.png" class="r-plt" alt="" width="85%"></p>
-<p>A fixed value is applied to all rectangles.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    border_colour <span class="op">=</span> <span class="st">"#3B82A0"</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-style-fixed-1.png" class="r-plt" alt="" width="85%"></p>
-<p>A vector gives one value per rectangle.</p>
+<p><img src="figures/vignette-supplying-one-1.png" class="r-plt" alt="" width="65%"></p>
+</div>
+<div class="section level3">
+<h3 id="a-vector-with-one-value-per-rectangle">A vector with one value per rectangle<a class="anchor" aria-label="anchor" href="#a-vector-with-one-value-per-rectangle"></a>
+</h3>
+<p>A vector supplies one value for each rectangle.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E7F2F7"</span>, <span class="st">"#EDF5E7"</span>, <span class="st">"#FBF0E3"</span>, <span class="st">"#F6E8EF"</span><span class="op">)</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#3B82A0"</span>, <span class="st">"#6A994E"</span>, <span class="st">"#D17A22"</span>, <span class="st">"#A44A6F"</span><span class="op">)</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>,</span>
+<span>    size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">1</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="figures/vignette-supplying-vector-1.png" class="r-plt" alt="" width="65%"></p>
+</div>
+<div class="section level3">
+<h3 id="a-column-from-the-data">A column from the data<a class="anchor" aria-label="anchor" href="#a-column-from-the-data"></a>
+</h3>
+<p>Column arguments usually end with <code>_col</code>.</p>
+<p>They take the name of a column as a string. This is useful when the
+data itself contains labels, colours, sizes or other visual settings,
+for example inside a function or a Shiny app.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#3B82A0"</span>, <span class="st">"#6A994E"</span>, <span class="st">"#D17A22"</span>, <span class="st">"#A44A6F"</span><span class="op">)</span>,</span>
-<span>    border_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span>    fill_col <span class="op">=</span> <span class="st">"fill"</span>,</span>
+<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"text"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
+<span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
+<span>    fill_col <span class="op">=</span> <span class="st">"shape_fill"</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="st">"white"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_shape_label.html">rect_shape_label</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"white"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-style-vector-1.png" class="r-plt" alt="" width="85%"></p>
-<p>A column argument reads values from the data.</p>
+<p><img src="figures/vignette-supplying-column-1.png" class="r-plt" alt="" width="65%"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="styling-rectangles">Styling rectangles<a class="anchor" aria-label="anchor" href="#styling-rectangles"></a>
+</h2>
+<p><code><a href="../reference/rect_style.html">rect_style()</a></code> controls rectangle fill, border colour,
+border width, border type and transparency.</p>
+<p>These settings can be supplied as a single value, a vector or from
+data columns, using the rules described above.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -320,12 +399,16 @@ width, border type and transparency of rectangles.</p>
 <span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-style-column-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-style-basic-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level2">
 <h2 id="working-with-labels">Working with labels<a class="anchor" aria-label="anchor" href="#working-with-labels"></a>
 </h2>
 <p><code><a href="../reference/rect_label.html">rect_label()</a></code> adds text inside rectangles.</p>
+<p>Labels can be supplied directly with <code>label</code> or read from
+a data column with <code>label_col</code>. Their appearance can be
+adjusted with arguments such as <code>size</code>, <code>colour</code>,
+<code>family</code> and <code>fontface</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -334,27 +417,17 @@ width, border type and transparency of rectangles.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-label-basic-1.png" class="r-plt" alt="" width="85%"></p>
-<p>Labels can also be supplied directly.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
-<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
-<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>,</span>
-<span>    size <span class="op">=</span> <span class="fl">1.2</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-label-direct-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-label-basic-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level2">
 <h2 id="adding-shapes">Adding shapes<a class="anchor" aria-label="anchor" href="#adding-shapes"></a>
 </h2>
 <p><code><a href="../reference/rect_shape.html">rect_shape()</a></code> adds small shapes to rectangles.</p>
-<p>Shapes can be used as markers, category badges or visual anchors.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<p>Shapes can be used as markers, category badges or visual anchors.
+Their appearance can be controlled with arguments such as
+<code>fill</code>, <code>border_colour</code> and
+<code>border_width</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -367,9 +440,14 @@ width, border type and transparency of rectangles.</p>
 <span>    border_colour <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    border_width <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-shape-basic-1.png" class="r-plt" alt="" width="85%"></p>
-<p><code><a href="../reference/rect_shape_label.html">rect_shape_label()</a></code> adds text to these shapes.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<p><img src="figures/vignette-shape-basic-1.png" class="r-plt" alt="" width="65%"></p>
+<div class="section level3">
+<h3 id="shape-labels">Shape labels<a class="anchor" aria-label="anchor" href="#shape-labels"></a>
+</h3>
+<p><code><a href="../reference/rect_shape_label.html">rect_shape_label()</a></code> adds text to these shapes. Label
+appearance can be controlled with arguments such as <code>size</code>,
+<code>colour</code> and <code>fontface</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -387,9 +465,23 @@ width, border type and transparency of rectangles.</p>
 <span>    colour <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">1.1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-shape-label-basic-1.png" class="r-plt" alt="" width="85%"></p>
-<p>Shape positions can be adjusted.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<p><img src="figures/vignette-shape-label-basic-1.png" class="r-plt" alt="" width="65%"></p>
+</div>
+<div class="section level3">
+<h3 id="shape-positions">Shape positions<a class="anchor" aria-label="anchor" href="#shape-positions"></a>
+</h3>
+<p>Shape positions can be adjusted with the <code>position</code>
+argument.</p>
+<p>Available positions include <code>"corner"</code>,
+<code>"top-left"</code>, <code>"top-right"</code>,
+<code>"bottom-left"</code>, <code>"bottom-right"</code>,
+<code>"left"</code>, <code>"right"</code>, <code>"top"</code> and
+<code>"bottom"</code>.</p>
+<p>For <code><a href="../reference/rect_plot4.html">rect_plot4()</a></code>, shapes can also alternate between
+sides using <code>"left-right"</code> or <code>"top-bottom"</code>.</p>
+<p>The examples below compare <code>"corner"</code> and
+<code>"top-bottom"</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -426,9 +518,15 @@ width, border type and transparency of rectangles.</p>
 <span>    colour <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">1.1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-shape-position-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-shape-position-2.png" class="r-plt" alt="" width="48%"></p>
-<p>Offsets move shapes without changing the rectangles.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<p><img src="figures/vignette-shape-position-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-shape-position-2.png" class="r-plt" alt="" width="45%"></p>
+</div>
+<div class="section level3">
+<h3 id="shape-offsets">Shape offsets<a class="anchor" aria-label="anchor" href="#shape-offsets"></a>
+</h3>
+<p>Offsets move shapes without changing the rectangles. Use
+<code>offset_x</code> and <code>offset_y</code> to fine-tune their
+horizontal and vertical position.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -456,14 +554,74 @@ width, border type and transparency of rectangles.</p>
 <span>    fill_col <span class="op">=</span> <span class="st">"shape_fill"</span>,</span>
 <span>    border_colour <span class="op">=</span> <span class="st">"white"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-shape-offset-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-shape-offset-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-shape-offset-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-shape-offset-2.png" class="r-plt" alt="" width="45%"></p>
+</div>
+<div class="section level3">
+<h3 id="shape-types">Shape types<a class="anchor" aria-label="anchor" href="#shape-types"></a>
+</h3>
+<p>The <code>shape</code> argument controls the symbol used by
+<code><a href="../reference/rect_shape.html">rect_shape()</a></code>.</p>
+<p>Rectangler uses the same shape values as
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">ggplot2::geom_point()</a></code>. For example:</p>
+<ul>
+<li>
+<code>21</code> = circle</li>
+<li>
+<code>22</code> = square</li>
+<li>
+<code>23</code> = diamond</li>
+<li>
+<code>24</code> = triangle up</li>
+<li>
+<code>25</code> = triangle down</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
+<span>    shape <span class="op">=</span> <span class="fl">23</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fl">1.5</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_shape_label.html">rect_shape_label</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>    colour_col <span class="op">=</span> <span class="st">"border"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
+<span>    shape <span class="op">=</span> <span class="fl">24</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"#E3A857"</span>,</span>
+<span>    border_colour <span class="op">=</span> <span class="st">"#8C5A2B"</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fl">1.5</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_shape_label.html">rect_shape_label</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"white"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="figures/vignette-shape-types-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-shape-types-2.png" class="r-plt" alt="" width="45%"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="using-annotations">Using annotations<a class="anchor" aria-label="anchor" href="#using-annotations"></a>
 </h2>
 <p><code><a href="../reference/rect_annotation.html">rect_annotation()</a></code> adds comments around the layout.</p>
-<p>Annotations are useful when the plot should explain why each object
-matters.</p>
+<p>Annotations are useful when the plot should explain why each
+rectangle matters. They can be supplied directly or from a data column,
+and the available <code>position</code> values depend on the layout
+type.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -480,95 +638,28 @@ matters.</p>
 <span>    position <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
 <span>    space <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-annotation-basic-1.png" class="r-plt" alt="" width="85%"></p>
-<p>Annotation positions can use intuitive names.</p>
-<p>For example, <code>position = "horizontal"</code> and
-<code>position = "h"</code> both mean horizontal annotations.</p>
+<p><img src="figures/vignette-annotation-basic-1.png" class="r-plt" alt="" width="65%"></p>
+<p>Annotation positions also accept intuitive aliases. For example,
+<code>position = "horizontal"</code> and <code>position = "h"</code>
+mean the same thing.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_annotation.html">rect_annotation</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"horizontal"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/rect_annotation.html">rect_annotation</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"h"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="supplying-values">Supplying values<a class="anchor" aria-label="anchor" href="#supplying-values"></a>
-</h2>
-<p>Many <code>rectangler</code> arguments can be supplied in three
-ways.</p>
-<div class="section level3">
-<h3 id="one-value-for-all-objects">One value for all objects<a class="anchor" aria-label="anchor" href="#one-value-for-all-objects"></a>
-</h3>
-<p>A single value is used for every rectangle, label or shape.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    border_colour <span class="op">=</span> <span class="st">"#3B82A0"</span>,</span>
-<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
-<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-supplying-one-1.png" class="r-plt" alt="" width="85%"></p>
-</div>
-<div class="section level3">
-<h3 id="a-vector-with-one-value-per-object">A vector with one value per object<a class="anchor" aria-label="anchor" href="#a-vector-with-one-value-per-object"></a>
-</h3>
-<p>A vector is recycled only when this is safe. Usually it should have
-one value for each object.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
-<span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E7F2F7"</span>, <span class="st">"#EDF5E7"</span>, <span class="st">"#FBF0E3"</span>, <span class="st">"#F6E8EF"</span><span class="op">)</span>,</span>
-<span>    border_colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#3B82A0"</span>, <span class="st">"#6A994E"</span>, <span class="st">"#D17A22"</span>, <span class="st">"#A44A6F"</span><span class="op">)</span>,</span>
-<span>    border_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
-<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>,</span>
-<span>    size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">1</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-supplying-vector-1.png" class="r-plt" alt="" width="85%"></p>
-</div>
-<div class="section level3">
-<h3 id="a-column-from-the-data">A column from the data<a class="anchor" aria-label="anchor" href="#a-column-from-the-data"></a>
-</h3>
-<p>Column arguments usually end with <code>_col</code>.</p>
-<p>They take the name of a column as a string.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
-<span>    fill_col <span class="op">=</span> <span class="st">"fill"</span>,</span>
-<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
-<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
-<span>    label_col <span class="op">=</span> <span class="st">"text"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
-<span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
-<span>    fill_col <span class="op">=</span> <span class="st">"shape_fill"</span>,</span>
-<span>    border_colour <span class="op">=</span> <span class="st">"white"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/rect_shape_label.html">rect_shape_label</a></span><span class="op">(</span></span>
-<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"white"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-supplying-column-1.png" class="r-plt" alt="" width="85%"></p>
-<p>This pattern is useful when the plot is created inside a function or
-a Shiny app, because the data carries the visual settings.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="controlling-spacing-and-proportions">Controlling spacing and proportions<a class="anchor" aria-label="anchor" href="#controlling-spacing-and-proportions"></a>
+<h2 id="controlling-size-spacing-and-proportions">Controlling size, spacing and proportions<a class="anchor" aria-label="anchor" href="#controlling-size-spacing-and-proportions"></a>
 </h2>
 <p>Many visual arguments in <code>rectangler</code> use relative
 sizes.</p>
-<p>The default value is usually <code>1</code>.</p>
-<p>Use values below <code>1</code> to make an element smaller and values
-above <code>1</code> to make it larger.</p>
+<p>A value of <code>1</code> usually means the default size. Values
+below <code>1</code> make an element smaller, while values above
+<code>1</code> make it larger.</p>
 <div class="section level3">
 <h3 id="label-size">Label size<a class="anchor" aria-label="anchor" href="#label-size"></a>
 </h3>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<p><code>size</code> controls label size relative to the default text
+size.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -590,12 +681,14 @@ above <code>1</code> to make it larger.</p>
 <span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">1.4</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-compare-label-size-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-compare-label-size-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-compare-label-size-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-compare-label-size-2.png" class="r-plt" alt="" width="45%"></p>
 </div>
 <div class="section level3">
 <h3 id="shape-size">Shape size<a class="anchor" aria-label="anchor" href="#shape-size"></a>
 </h3>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<p><code>size</code> controls shape size relative to the default shape
+size.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -604,7 +697,7 @@ above <code>1</code> to make it larger.</p>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
-<span>    size <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    fill_col <span class="op">=</span> <span class="st">"shape_fill"</span>,</span>
 <span>    border_colour <span class="op">=</span> <span class="st">"white"</span></span>
 <span>  <span class="op">)</span></span>
@@ -617,16 +710,22 @@ above <code>1</code> to make it larger.</p>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_shape.html">rect_shape</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="st">"corner"</span>,</span>
-<span>    size <span class="op">=</span> <span class="fl">1.4</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">2.5</span>,</span>
 <span>    fill_col <span class="op">=</span> <span class="st">"shape_fill"</span>,</span>
 <span>    border_colour <span class="op">=</span> <span class="st">"white"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-compare-shape-size-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-compare-shape-size-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-compare-shape-size-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-compare-shape-size-2.png" class="r-plt" alt="" width="45%"></p>
 </div>
 <div class="section level3">
 <h3 id="annotation-space">Annotation space<a class="anchor" aria-label="anchor" href="#annotation-space"></a>
 </h3>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<p><code>space</code> controls how much room is reserved around the plot
+for annotations.</p>
+<p>For short annotations, a small amount of extra space may be enough.
+Longer annotation text may need more room. Increasing <code>space</code>
+expands the plotting area around the rectangles so that the text fits
+without being clipped.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -637,10 +736,22 @@ above <code>1</code> to make it larger.</p>
 <span>  <span class="fu"><a href="../reference/rect_annotation.html">rect_annotation</a></span><span class="op">(</span></span>
 <span>    label_col <span class="op">=</span> <span class="st">"annotation"</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>    space <span class="op">=</span> <span class="fl">0.5</span></span>
+<span>    space <span class="op">=</span> <span class="fl">1.2</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="figures/vignette-compare-annotation-space-1.png" class="r-plt" alt="" width="80%"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">mydata_space</span> <span class="op">&lt;-</span> <span class="va">mydata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    annotation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Top performer in the latest year"</span>,</span>
+<span>      <span class="st">"Highest growth compared\nwith the previous baseline year"</span>,</span>
+<span>      <span class="st">"Largest investment among all domains"</span>,</span>
+<span>      <span class="st">"Lowest cost per completed activity"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata_space</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
@@ -650,16 +761,17 @@ above <code>1</code> to make it larger.</p>
 <span>  <span class="fu"><a href="../reference/rect_annotation.html">rect_annotation</a></span><span class="op">(</span></span>
 <span>    label_col <span class="op">=</span> <span class="st">"annotation"</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>    space <span class="op">=</span> <span class="fl">2</span></span>
+<span>    space <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-compare-annotation-space-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-compare-annotation-space-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-compare-annotation-long-space-1.png" class="r-plt" alt="" width="80%"></p>
 </div>
 <div class="section level3">
 <h3 id="gap">Gap<a class="anchor" aria-label="anchor" href="#gap"></a>
 </h3>
 <p><code>gap</code> controls the space between rectangles in the
 constructor.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span>, gap <span class="op">=</span> <span class="fl">0.02</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -675,14 +787,14 @@ constructor.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-compare-gap-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-compare-gap-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-compare-gap-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-compare-gap-2.png" class="r-plt" alt="" width="45%"></p>
 </div>
 <div class="section level3">
 <h3 id="padding">Padding<a class="anchor" aria-label="anchor" href="#padding"></a>
 </h3>
 <p><code>padding</code> controls the space between the plot and the
 outer plotting area.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span>, padding <span class="op">=</span> <span class="fl">0.02</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -698,13 +810,13 @@ outer plotting area.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-compare-padding-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-compare-padding-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-compare-padding-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-compare-padding-2.png" class="r-plt" alt="" width="45%"></p>
 </div>
 <div class="section level3">
 <h3 id="aspect-ratio">Aspect ratio<a class="anchor" aria-label="anchor" href="#aspect-ratio"></a>
 </h3>
 <p><code>aspect_ratio</code> controls the shape of the rectangles.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_row.html">rect_row</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span>, aspect_ratio <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -720,18 +832,17 @@ outer plotting area.</p>
 <span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span>label_col <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-compare-aspect-ratio-1.png" class="r-plt" alt="" width="48%"><img src="figures/vignette-compare-aspect-ratio-2.png" class="r-plt" alt="" width="48%"></p>
+<p><img src="figures/vignette-compare-aspect-ratio-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-compare-aspect-ratio-2.png" class="r-plt" alt="" width="45%"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="complete-examples">Complete examples<a class="anchor" aria-label="anchor" href="#complete-examples"></a>
 </h2>
-<p>This section shows a few complete uses of the grammar. They are not a
-repeat of the first plot, but variations for different tasks.</p>
+<p>This section shows a few complete examples for different tasks.</p>
 <div class="section level3">
 <h3 id="simple-comparison">Simple comparison<a class="anchor" aria-label="anchor" href="#simple-comparison"></a>
 </h3>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_row.html">rect_row</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill_col <span class="op">=</span> <span class="st">"fill"</span>,</span>
@@ -742,12 +853,12 @@ repeat of the first plot, but variations for different tasks.</p>
 <span>    label_col <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-complete-simple-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-complete-simple-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level3">
-<h3 id="badge-style-comparison">Badge-style comparison<a class="anchor" aria-label="anchor" href="#badge-style-comparison"></a>
+<h3 id="comparison-with-labeled-shapes">Comparison with labeled shapes<a class="anchor" aria-label="anchor" href="#comparison-with-labeled-shapes"></a>
 </h3>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -770,12 +881,12 @@ repeat of the first plot, but variations for different tasks.</p>
 <span>    label_col <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-complete-badge-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-complete-badge-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 <div class="section level3">
 <h3 id="annotated-comparison">Annotated comparison<a class="anchor" aria-label="anchor" href="#annotated-comparison"></a>
 </h3>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_col.html">rect_col</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
 <span>    fill_col <span class="op">=</span> <span class="st">"fill"</span>,</span>
@@ -791,7 +902,7 @@ repeat of the first plot, but variations for different tasks.</p>
 <span>    position <span class="op">=</span> <span class="st">"right"</span>,</span>
 <span>    space <span class="op">=</span> <span class="fl">1.2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-complete-annotated-1.png" class="r-plt" alt="" width="85%"></p>
+<p><img src="figures/vignette-complete-annotated-1.png" class="r-plt" alt="" width="65%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -799,7 +910,10 @@ repeat of the first plot, but variations for different tasks.</p>
 </h2>
 <p><code>rectangler</code> plots can be used in Shiny with
 <code>renderPlot()</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<p>A Shiny app can keep labels, colours and annotations in the data and
+pass them to <code>rectangler</code> through <code>_col</code>
+arguments.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output</span><span class="op">$</span><span class="va">rectangler_plot</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -812,19 +926,18 @@ repeat of the first plot, but variations for different tasks.</p>
 <span>      size <span class="op">=</span> <span class="fl">0.8</span></span>
 <span>    <span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>A Shiny app can keep labels, colours and annotations in the data and
-pass them to <code>rectangler</code> through <code>_col</code>
-arguments.</p>
 </div>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <p><code>rectangler</code> is useful when you want to compare a small
 number of objects with a clear visual structure.</p>
-<p>Start with a constructor. Add style, labels, shapes and annotations.
-Use one value, a vector or a data column depending on whether the
-setting should apply to all objects, each object separately or come from
-the data.</p>
+<p>Start with a constructor. Add style, labels, shapes and annotations
+as needed.</p>
+<p>Supply settings as a single value, one value per rectangle or from a
+data column. For direct vectors, use either one value or exactly one
+value per rectangle. For arguments with a <code>*_col</code> version,
+supply either the direct value or the column name, not both.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

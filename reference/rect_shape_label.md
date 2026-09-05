@@ -103,7 +103,7 @@ A Rectangler plot object with an added shape label layer.
 ## Examples
 
 ``` r
-rect_plot4() %>%
+rect_plot4(rect_data_demo) %>%
   rect_shape_label()
 
 

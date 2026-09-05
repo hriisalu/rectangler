@@ -90,7 +90,7 @@ A Rectangler plot object with updated rectangle styling.
 ## Examples
 
 ``` r
-rect_plot4() %>%
+rect_plot4(rect_data_demo) %>%
   rect_style(fill = "grey90", border_colour = "white")
 
 
