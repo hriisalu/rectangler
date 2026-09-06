@@ -675,6 +675,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
+    size = 1,
     space = 1
   )
 ```
@@ -785,7 +786,8 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 1.2
+    size = 1,
+    space = 0.9
   )
 ```
 
@@ -799,7 +801,7 @@ mydata_space <- mydata %>%
     annotation = c(
       "Top performer in the latest year",
       "Highest growth compared\nwith the previous baseline year",
-      "Largest investment among all domains",
+      "Largest investment across\nall four domains combined",
       "Lowest cost per completed activity"
     )
   )
@@ -814,8 +816,8 @@ rect_plot4(mydata_space, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 4,
-    size = 0.8
+    size = 1,
+    space = 4
   )
 ```
 
