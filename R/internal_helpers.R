@@ -96,7 +96,7 @@ rect_prepare_value <- function(data,
     )
   }
 
-  # read values from data column
+  # Read values from data column
   if (!is.null(value_col)) {
 
     if (!value_col %in% names(data)) {
@@ -109,16 +109,24 @@ rect_prepare_value <- function(data,
     value <- data[[value_col]]
   }
 
-  # default value
-  if (is.null(value)) {
-    value <- rep(default, n)
-  } else {
-    value <- rect_recycle(value, n, arg = arg)
-  }
-
-  # convert relative sizes if requested
+  # Relative sizes use 1 as the neutral multiplier.
   if (isTRUE(size)) {
+
+    if (is.null(value)) {
+      value <- rep(1, n)
+    } else {
+      value <- rect_recycle(value, n, arg = arg)
+    }
+
     value <- rect_size(value, default)
+
+  } else {
+
+    if (is.null(value)) {
+      value <- rep(default, n)
+    } else {
+      value <- rect_recycle(value, n, arg = arg)
+    }
   }
 
   value

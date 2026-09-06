@@ -29,7 +29,10 @@ test_that("rect_shape() preserves core rectangler metadata", {
   expect_identical(rect_info(p2)$plot_type, rect_info(p)$plot_type)
   expect_identical(rect_info(p2)$layout, rect_info(p)$layout)
 
-  expect_true(!identical(rect_info(p2)$settings$limits, rect_info(p)$settings$limits))
+  expect_identical(
+    rect_info(p2)$settings$limits,
+    rect_info(p)$settings$limits
+  )
 })
 
 test_that("rect_shape() adds one point layer", {
@@ -74,7 +77,7 @@ test_that("rect_shape() uses default size", {
 
   expect_equal(
     shape_layer$size,
-    rep(rect_defaults$shape_size * 4, 4)
+    rep(rect_defaults$shape_size, 4)
   )
 })
 
@@ -114,7 +117,7 @@ test_that("rect_shape() uses default border style", {
 
   expect_equal(
     shape_layer$stroke,
-    rep(rect_defaults$shape_border_width / 2, 4)
+    rep(rect_defaults$shape_border_width, 4)
   )
 })
 

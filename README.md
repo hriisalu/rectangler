@@ -55,6 +55,10 @@ create larger rectangles.
 Values can be supplied directly with `value` or from a data column with
 `value_col`. Layers then add styling, labels, shapes and annotations.
 
+Size-related arguments are relative to their defaults: `1` means the
+default size, values below `1` make an element smaller, and values above
+`1` make it larger.
+
 ``` r
 rect_plot4(data, value_col = "value") %>%
   rect_style() %>%

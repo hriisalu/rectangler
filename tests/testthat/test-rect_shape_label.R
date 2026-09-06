@@ -152,7 +152,7 @@ test_that("rect_shape_label() accepts constant text style values", {
 
   expect_equal(
     label_layer$size,
-    rep(rect_defaults$text_size * 6 * 3, 4)
+    rep(rect_defaults$shape_text_size * 6 * 3, 4)
   )
   expect_equal(label_layer$colour, rep("red", 4))
   expect_equal(label_layer$family, rep("serif", 4))
@@ -179,7 +179,7 @@ test_that("rect_shape_label() accepts column-based text style values", {
 
   expect_equal(
     label_layer$size,
-    data$text_size * rect_defaults$text_size * 3
+    data$text_size * rect_defaults$shape_text_size * 3
   )
   expect_equal(label_layer$colour, data$text_colour)
 })

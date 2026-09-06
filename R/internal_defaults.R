@@ -15,7 +15,7 @@ rect_defaults <- list(
 
   # shapes
   shape = 21,
-  shape_size = 4,
+  shape_size = 14,
   shape_fill = "white",
   shape_border_colour = "black",
   shape_border_width = 0.5,

@@ -54,19 +54,19 @@ test_that("rect_prepare_value() uses constants, columns and defaults", {
   )
 })
 
-test_that("rect_prepare_value() lets value_col override value", {
+test_that("rect_prepare_value() errors when both value and value_col are supplied", {
   data <- tibble::tibble(
     label = c("A", "B", "C")
   )
 
-  expect_equal(
+  expect_error(
     rect_prepare_value(
       data,
       value = "X",
       value_col = "label",
       n = 3
     ),
-    data$label
+    "Supply either `value` or `value_col`, not both\\."
   )
 })
 
