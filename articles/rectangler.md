@@ -675,7 +675,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    size = 1,
+    size = 0.8,
     space = 1
   )
 ```
@@ -712,7 +712,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_label(
     label_col = "label",
-    size = 0.7
+    size = 0.8
   )
 
 rect_plot4(mydata, value_col = "value") %>%
@@ -743,7 +743,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape(
     position = "corner",
-    size = 1,
+    size = 2.5,
     fill_col = "shape_fill",
     border_colour = "white"
   )
@@ -756,7 +756,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape(
     position = "corner",
-    size = 2.5,
+    size = 5,
     fill_col = "shape_fill",
     border_colour = "white"
   )
@@ -786,8 +786,8 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    size = 1,
-    space = 0.9
+    size = 0.8,
+    space = 1.5
   )
 ```
 
@@ -816,8 +816,8 @@ rect_plot4(mydata_space, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    size = 1,
-    space = 4
+    size = 0.8,
+    space = 4.5
   )
 ```
 
