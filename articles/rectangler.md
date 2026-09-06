@@ -645,7 +645,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape_label(
     label_col = "label",
-    colour = "white"
+    colour = "black"
   )
 ```
 
@@ -693,10 +693,16 @@ rect_annotation(position = "h")
 
 ## Controlling size, spacing and proportions
 
-Many visual arguments in `rectangler` use relative sizes.
+Size arguments in `rectangler` are relative to their default size.
 
-A value of `1` usually means the default size. Values below `1` make an
-element smaller, while values above `1` make it larger.
+A value of `1` means the default size. Values below `1` make an element
+smaller, while values above `1` make it larger.
+
+For example, `size = 0.5` makes an element half its default size and
+`size = 2` makes it twice as large.
+
+This applies to label size, shape size, shape-label size and annotation
+text size. Border widths use the same relative principle.
 
 ### Label size
 
@@ -743,7 +749,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape(
     position = "corner",
-    size = 2.5,
+    size = 0.8,
     fill_col = "shape_fill",
     border_colour = "white"
   )
@@ -756,7 +762,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_shape(
     position = "corner",
-    size = 5,
+    size = 2,
     fill_col = "shape_fill",
     border_colour = "white"
   )
@@ -786,7 +792,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    size = 0.8,
+    size = 1,
     space = 1.5
   )
 ```
@@ -816,7 +822,7 @@ rect_plot4(mydata_space, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    size = 0.8,
+    size = 0.7,
     space = 4.5
   )
 ```
@@ -829,7 +835,8 @@ rect_plot4(mydata_space, value_col = "value") %>%
 
 ``` r
 
-rect_plot4(mydata, value_col = "value", gap = 0.02) %>%
+
+rect_plot4(mydata, value_col = "value", gap = 0.05) %>%
   rect_style(
     fill = "white",
     border_colour_col = "border",
@@ -934,7 +941,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_shape(
     position = "corner",
     shape = 23,
-    size = 4,
+    size = 2,
     fill_col = "shape_fill",
     border_colour = "white"
   ) %>%
@@ -1009,3 +1016,6 @@ Supply settings as a single value, one value per rectangle or from a
 data column. For direct vectors, use either one value or exactly one
 value per rectangle. For arguments with a `*_col` version, supply either
 the direct value or the column name, not both.
+
+For size arguments, `1` means the default size, values below `1` make
+the element smaller, and values above `1` make it larger.
