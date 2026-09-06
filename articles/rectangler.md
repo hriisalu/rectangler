@@ -154,7 +154,7 @@ rect_plot4(mydata, value_col = "value") %>%
   ) %>%
   rect_label(
     label_col = "text",
-    size = 0.8
+    size = 1
   ) %>%
   rect_shape(
     position = "corner",
@@ -169,7 +169,8 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 1
+    size = 0.8,
+    space = 1.1
   )
 ```
 
