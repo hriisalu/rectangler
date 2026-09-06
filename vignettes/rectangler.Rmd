@@ -590,6 +590,7 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
+    size = 1,
     space = 1
   )
 ```
@@ -675,7 +676,7 @@ rect_plot4(mydata, value_col = "value") %>%
 
 For short annotations, a small amount of extra space may be enough. Longer annotation text may need more room. Increasing `space` expands the plotting area around the rectangles so that the text fits without being clipped.
 
-```{r compare-annotation-space, fig.show = "hold", out.width="80%", fig.height=5}
+```{r compare-annotation-space, fig.show = "hold", fig.height=5}
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -686,18 +687,19 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 1.2
+    size = 1,
+    space = 0.9
   )
 ```
 
-```{r compare-annotation-long-space, fig.show = "hold", out.width="80%", fig.height=3}
+```{r compare-annotation-long-space, fig.show = "hold", fig.height=3}
 
 mydata_space <- mydata %>%
   mutate(
     annotation = c(
       "Top performer in the latest year",
       "Highest growth compared\nwith the previous baseline year",
-      "Largest investment among all domains",
+      "Largest investment across\nall four domains combined",
       "Lowest cost per completed activity"
     )
   )
@@ -712,8 +714,8 @@ rect_plot4(mydata_space, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    space = 4,
-    size = 0.8
+    size = 1,
+    space = 4
   )
 ```
 
