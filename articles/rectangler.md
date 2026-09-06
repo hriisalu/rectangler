@@ -170,7 +170,7 @@ rect_plot4(mydata, value_col = "value") %>%
     label_col = "annotation",
     position = "horizontal",
     size = 0.8,
-    space = 1.1
+    space = 1.5
   )
 ```
 
