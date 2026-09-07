@@ -619,10 +619,8 @@ horizontal and vertical position.</p>
 <h2 id="using-annotations">Using annotations<a class="anchor" aria-label="anchor" href="#using-annotations"></a>
 </h2>
 <p><code><a href="../reference/rect_annotation.html">rect_annotation()</a></code> adds comments around the layout.</p>
-<p>Annotations are useful when the plot should explain why each
-rectangle matters. They can be supplied directly or from a data column,
-and the available <code>position</code> values depend on the layout
-type.</p>
+<p>Annotations can be placed above, below, left, or right of rectangles.
+The text can also be rotated when needed.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
@@ -636,11 +634,29 @@ type.</p>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/rect_annotation.html">rect_annotation</a></span><span class="op">(</span></span>
 <span>    label_col <span class="op">=</span> <span class="st">"annotation"</span>,</span>
+<span>    position <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>    space <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/rect_plot4.html">rect_plot4</a></span><span class="op">(</span><span class="va">mydata</span>, value_col <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_style.html">rect_style</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    border_colour_col <span class="op">=</span> <span class="st">"border"</span>,</span>
+<span>    border_width <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_label.html">rect_label</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/rect_annotation.html">rect_annotation</a></span><span class="op">(</span></span>
+<span>    label_col <span class="op">=</span> <span class="st">"annotation"</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>    size <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>    angle <span class="op">=</span> <span class="fl">90</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>    space <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="figures/vignette-annotation-basic-1.png" class="r-plt" alt="" width="65%"></p>
+<p><img src="figures/vignette-annotation-basic-1.png" class="r-plt" alt="" width="45%"><img src="figures/vignette-annotation-basic-2.png" class="r-plt" alt="" width="45%"></p>
 <p>Annotation positions also accept intuitive aliases. For example,
 <code>position = "horizontal"</code> and <code>position = "h"</code>
 mean the same thing.</p>
