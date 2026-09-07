@@ -1,5 +1,7 @@
 # rectangler
 
+[![R-CMD-check](https://github.com/hriisalu/rectangler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hriisalu/rectangler/actions/workflows/R-CMD-check.yaml)
+
 **rectangler** helps you build comparison graphics using rectangles in
 R.
 
