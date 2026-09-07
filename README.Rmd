@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 
 # rectangler
 
+[![R-CMD-check](https://github.com/hriisalu/rectangler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hriisalu/rectangler/actions/workflows/R-CMD-check.yaml)
+
 **rectangler** helps you build comparison graphics using rectangles in R.
 
 It is designed for plots with a small number of meaningful objects: domains, groups, categories, steps, or indicators that should remain directly readable.
