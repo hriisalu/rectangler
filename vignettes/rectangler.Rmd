@@ -573,11 +573,27 @@ rect_plot4(mydata, value_col = "value") %>%
 
 `rect_annotation()` adds comments around the layout.
 
-Annotations are useful when the plot should explain why each rectangle matters.
-They can be supplied directly or from a data column, and the available
-`position` values depend on the layout type.
+Annotations can be placed above, below, left, or right of rectangles.
+The text can also be rotated when needed.
 
-```{r annotation-basic, fig.height=5}
+```{r annotation-basic, fig.show="hold", fig.height=6.5, out.width="45%"}
+rect_plot4(mydata, value_col = "value") %>%
+  rect_style(
+    fill = "white",
+    border_colour_col = "border",
+    border_width = 2
+  ) %>%
+  rect_label(
+    label_col = "label",
+    size = 1
+  ) %>%
+  rect_annotation(
+    label_col = "annotation",
+    position = "vertical",
+    size = 0.9,
+    space = 1
+  )
+
 rect_plot4(mydata, value_col = "value") %>%
   rect_style(
     fill = "white",
@@ -591,7 +607,8 @@ rect_plot4(mydata, value_col = "value") %>%
   rect_annotation(
     label_col = "annotation",
     position = "horizontal",
-    size = 0.8,
+    angle = 90,
+    size = 0.9,
     space = 1
   )
 ```
